@@ -1,9 +1,10 @@
-import Homepage from "./components/Homepage";
+import Homepage from "./pages/Homepage";
+import ListSurahPage from "./pages/ListSurahPage";
 
 function App() {
   return (
     <>
-      <Homepage />
+      <ListSurahPage />
     </>
   );
 }
