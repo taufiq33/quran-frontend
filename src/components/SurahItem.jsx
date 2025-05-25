@@ -23,7 +23,7 @@ export default function SurahItem({ surahData }) {
           </div>
         </div>
 
-        <div className="text-purple-950 font-bold arabic-surah-title">
+        <div className="text-purple-950 font-bold arabic arabic-surah-title">
           {surahData.name.short}
         </div>
       </div>

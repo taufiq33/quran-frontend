@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "KFGQPC Uthmanic Script HAFS Regular";
+  src: url("./assets/fonts/KFGQPC Uthmanic Script HAFS Regular.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LPMQ IsepMisbah";
+  src: url("./assets/fonts/LPMQ IsepMisbah.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
