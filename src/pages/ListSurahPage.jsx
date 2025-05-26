@@ -13,7 +13,7 @@ export default function ListSurahPage() {
 
   useEffect(() => {
     async function getListSurah() {
-      const url = "http://192.168.43.216:3000/surah";
+      const url = "https://equran.id/api/v2/surat";
       const request = await fetch(url);
       const response = await request.json();
       setListSurah(response.data);
@@ -29,7 +29,7 @@ export default function ListSurahPage() {
           <div className="flex gap-6">
             <img src={SideMenuIcon} alt="" className="" />
             <h1 className="text-purple-500 grayscale-50 font-bold text-lg ">
-              Quran App
+              Aplikasi Al Quran
             </h1>
           </div>
           <img src={SearchIcon} alt="" className="" />
@@ -48,11 +48,11 @@ export default function ListSurahPage() {
         >
           <div className="last-read flex gap-2 mb-4">
             <img src={QuranSmall} alt="" />
-            <span className="text-sm">Last Read</span>
+            <span className="text-sm">Terakhir dibaca</span>
           </div>
           <div className="last-surah-ayah">
             <h4 className="font-bold text-lg">Al-Fatihah</h4>
-            <p className="text-xs opacity-80">Ayah No: 1</p>
+            <p className="text-xs opacity-80">Ayat No: 1</p>
           </div>
         </div>
 
@@ -63,7 +63,7 @@ export default function ListSurahPage() {
               type="text"
               name=""
               id=""
-              placeholder="Search surah..."
+              placeholder="cari nama/nomor surat..."
             />
           </div>
 
@@ -71,7 +71,7 @@ export default function ListSurahPage() {
 
           <div className="list-surah">
             {listSurah.map((item) => (
-              <SurahItem key={item.number} surahData={item} />
+              <SurahItem key={item.nomor} surahData={item} />
             ))}
           </div>
         </div>

@@ -10,7 +10,7 @@ export default function Surah() {
 
   useEffect(() => {
     async function getSurahData() {
-      const url = "https://equran.id/api/v2/surat/2";
+      const url = "https://equran.id/api/v2/surat/1";
       const request = await fetch(url);
       const response = await request.json();
       setSurahData(response.data);
@@ -43,7 +43,7 @@ export default function Surah() {
               <h2>{surahData.jumlahAyat} Ayat</h2>
             </div>
             <div className="text-3xl my-4">
-              <h1 className="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</h1>
+              <h1 className="arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
             </div>
           </div>
 
