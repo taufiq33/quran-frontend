@@ -5,9 +5,12 @@ import BookmarkPage from "./pages/BookmarkPage";
 
 function App() {
   return (
-    <>
+    <main className="mb-20">
+      <Homepage />
+      <ListSurahPage />
+      <Surah />
       <BookmarkPage />
-    </>
+    </main>
   );
 }
 
