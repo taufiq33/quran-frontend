@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 import SideMenuIcon from "../assets/side-menu-icon.svg";
 import SearchIcon from "../assets/search-line.svg";
@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 
 export default function ListSurahPage() {
   const [listSurah, setListSurah] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [debouncedKeyword, setDebouncedKeyword] = useState("");
+  const searchBarRef = useRef();
 
   useEffect(() => {
     async function getListSurah() {
@@ -23,6 +26,36 @@ export default function ListSurahPage() {
     getListSurah();
   }, []);
 
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setDebouncedKeyword(keyword.trim());
+    }, 100);
+    return () => clearTimeout(delay);
+  }, [keyword]);
+
+  const filteredSurah = useMemo(() => {
+    if (!debouncedKeyword) return listSurah;
+
+    const cleanedKeyword = debouncedKeyword
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .toLowerCase();
+    const regex = new RegExp(cleanedKeyword, "i");
+
+    return listSurah.filter((item) => {
+      const cleanedNamaLatin = item.namaLatin
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .toLowerCase();
+      return (
+        item.nomor.toString() === debouncedKeyword.toString() ||
+        regex.test(cleanedNamaLatin)
+      );
+    });
+  }, [debouncedKeyword, listSurah]);
+
+  function handleSearchIconClick() {
+    searchBarRef.current.focus();
+  }
+
   return (
     <>
       <div className="poppins-regular">
@@ -33,37 +66,49 @@ export default function ListSurahPage() {
               Aplikasi Al Quran
             </h1>
           </div>
-          <img src={SearchIcon} alt="" className="" />
+          <img
+            src={SearchIcon}
+            onClick={handleSearchIconClick}
+            alt=""
+            className=""
+          />
         </div>
 
-        <div className="welcome-banner flex flex-col mb-6 px-4">
-          <h3 className="text-stone-500 mb-1">Assalamualaikum</h3>
-          <h2 className="text-stone-700 font-bold tracking-widest text-lg">
-            Taufiq Hidayat
-          </h2>
-        </div>
+        {!keyword && (
+          <>
+            <div className="welcome-banner flex flex-col mb-6 px-4 duration-300 ease-in">
+              <h3 className="text-stone-500 mb-1">Assalamualaikum</h3>
+              <h2 className="text-stone-700 font-bold tracking-widest text-lg">
+                Taufiq Hidayat
+              </h2>
+            </div>
 
-        <div
-          className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 mx-4  bg-cover text-white mb-2 shadow-xl`}
-          style={{ backgroundImage: `url(${LastReadBanner})` }}
-        >
-          <div className="last-read flex gap-2 mb-4">
-            <img src={QuranSmall} alt="" />
-            <span className="text-sm">Terakhir dibaca</span>
-          </div>
-          <div className="last-surah-ayah">
-            <h4 className="font-bold text-lg">Al-Fatihah</h4>
-            <p className="text-xs opacity-80">Ayat No: 1</p>
-          </div>
-        </div>
+            <div
+              className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in`}
+              style={{ backgroundImage: `url(${LastReadBanner})` }}
+            >
+              <div className="last-read flex gap-2 mb-4">
+                <img src={QuranSmall} alt="" />
+                <span className="text-sm">Terakhir dibaca</span>
+              </div>
+              <div className="last-surah-ayah">
+                <h4 className="font-bold text-lg">Al-Fatihah</h4>
+                <p className="text-xs opacity-80">Ayat No: 1</p>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="container-list-of-surah p-4">
           <div className="search-box p-1">
             <input
               className="shadow-lg border-1 w-full text-sm border-purple-900 rounded p-2"
-              type="text"
+              type="search"
               name=""
+              ref={searchBarRef}
               id=""
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
               placeholder="cari nama/nomor surat..."
             />
           </div>
@@ -71,7 +116,7 @@ export default function ListSurahPage() {
           <hr className="border border-stone-200 my-2" />
 
           <div className="list-surah">
-            {listSurah.map((item) => (
+            {filteredSurah.map((item) => (
               <Link to={`/surah/${item.nomor}`} key={item.nomor}>
                 <SurahItem surahData={item} />
               </Link>

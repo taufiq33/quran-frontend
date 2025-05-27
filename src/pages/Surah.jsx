@@ -19,7 +19,7 @@ export default function Surah() {
     }
 
     getSurahData();
-  }, []);
+  }, [number]);
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function Surah() {
 
           <div className="surah-ayah-container">
             {surahData.ayat.map((item) => (
-              <AyahItem key={item.nomor} ayahData={item} />
+              <AyahItem key={item.nomorAyat} ayahData={item} />
             ))}
           </div>
 
