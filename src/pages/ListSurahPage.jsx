@@ -7,6 +7,7 @@ import QuranSmall from "../assets/quran-small.svg";
 
 import SurahItem from "../components/SurahItem";
 import BottomNavbar from "../components/BottomNavbar";
+import { Link } from "react-router-dom";
 
 export default function ListSurahPage() {
   const [listSurah, setListSurah] = useState([]);
@@ -71,7 +72,9 @@ export default function ListSurahPage() {
 
           <div className="list-surah">
             {listSurah.map((item) => (
-              <SurahItem key={item.nomor} surahData={item} />
+              <Link to={`/surah/${item.nomor}`} key={item.nomor}>
+                <SurahItem surahData={item} />
+              </Link>
             ))}
           </div>
         </div>

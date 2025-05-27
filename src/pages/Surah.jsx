@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import SurahBanner from "../assets/surah-banner.png";
 
@@ -7,10 +8,11 @@ import BottomNavbar from "../components/BottomNavbar";
 
 export default function Surah() {
   const [surahData, setSurahData] = useState(null);
+  const { number } = useParams();
 
   useEffect(() => {
     async function getSurahData() {
-      const url = "https://equran.id/api/v2/surat/1";
+      const url = `https://equran.id/api/v2/surat/${number}`;
       const request = await fetch(url);
       const response = await request.json();
       setSurahData(response.data);

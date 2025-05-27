@@ -6,6 +6,11 @@
   line-height: 2;
 }
 
+.active {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(100%) saturate(3004%)
+    hue-rotate(268deg) brightness(89%) contrast(89%);
+}
+
 .poppins-thin {
   font-family: "Poppins", sans-serif;
   font-weight: 100;
