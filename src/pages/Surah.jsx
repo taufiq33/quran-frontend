@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import SurahBanner from "../assets/surah-banner.png";
@@ -8,7 +8,9 @@ import BottomNavbar from "../components/BottomNavbar";
 
 export default function Surah() {
   const [surahData, setSurahData] = useState(null);
+  const [activeAyahPlayed, setActiveAyahPlayed] = useState(null);
   const { number } = useParams();
+  const audioRef = useRef();
 
   useEffect(() => {
     async function getSurahData() {
@@ -20,6 +22,14 @@ export default function Surah() {
 
     getSurahData();
   }, [number]);
+
+  function ayahAudioPlayEvent(src, ayah) {
+    if (audioRef.current) {
+      setActiveAyahPlayed(ayah);
+      audioRef.current.src = src;
+      audioRef.current.play();
+    }
+  }
 
   return (
     <>
@@ -51,9 +61,25 @@ export default function Surah() {
 
           <div className="surah-ayah-container">
             {surahData.ayat.map((item) => (
-              <AyahItem key={item.nomorAyat} ayahData={item} />
+              <AyahItem
+                key={item.nomorAyat}
+                ayahData={item}
+                onPlayAudio={ayahAudioPlayEvent}
+                playStatus={item.nomorAyat === activeAyahPlayed}
+              />
             ))}
           </div>
+
+          <audio
+            className="sticky bottom-14 w-full p-1 scale-95"
+            src={null}
+            ref={audioRef}
+            controls
+            onEnded={(event) => {
+              event.target.src = null;
+              setActiveAyahPlayed(null);
+            }}
+          ></audio>
 
           <BottomNavbar />
         </div>
