@@ -10,9 +10,23 @@ export default function AppContextProvider({ children }) {
       const request = await fetch(url);
       const response = await request.json();
       setListSurah(response.data);
+      setLocalStorageListSurah(response.data);
     }
 
-    getListSurah();
+    function getLocalStorageListSurah() {
+      return JSON.parse(localStorage.getItem("listSurah"));
+    }
+
+    function setLocalStorageListSurah(value) {
+      return localStorage.setItem("listSurah", JSON.stringify(value));
+    }
+
+    const localListSurah = getLocalStorageListSurah();
+    if (!localListSurah) {
+      getListSurah();
+    } else {
+      setListSurah(localListSurah);
+    }
   }, []);
 
   const contextValue = {

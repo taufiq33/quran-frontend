@@ -30,6 +30,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  if (!localStorage.getItem("surahData")) {
+    localStorage.setItem("surahData", JSON.stringify([]));
+  }
   return (
     <main className="mb-20">
       <AppContextProvider>

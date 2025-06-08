@@ -7,6 +7,12 @@ import AyahItem from "../components/AyahItem";
 import BottomNavbar from "../components/BottomNavbar";
 import SurahAndAyahNavigation from "../components/SurahAndAyahNavigation";
 
+import {
+  getLocalStorageSurahData,
+  saveToLocalStorageSurahData,
+  checkExistingSurahData,
+} from "../helper/local-storage-helper";
+
 export default function Surah() {
   const [surahData, setSurahData] = useState(null);
   const [activeAyahPlayed, setActiveAyahPlayed] = useState(null);
@@ -19,9 +25,16 @@ export default function Surah() {
       const request = await fetch(url);
       const response = await request.json();
       setSurahData(response.data);
+      saveToLocalStorageSurahData(number, response.data);
     }
 
-    getSurahData();
+    if (checkExistingSurahData(number)) {
+      setSurahData(getLocalStorageSurahData(number));
+    } else {
+      getSurahData();
+    }
+
+    // getSurahData();
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     let timeout = setTimeout(() => {
