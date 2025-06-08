@@ -11,6 +11,11 @@
     hue-rotate(268deg) brightness(89%) contrast(89%);
 }
 
+.grey-custom-filter {
+  filter: brightness(0) saturate(100%) invert(74%) sepia(5%) saturate(6%)
+    hue-rotate(352deg) brightness(93%) contrast(95%);
+}
+
 .poppins-thin {
   font-family: "Poppins", sans-serif;
   font-weight: 100;
