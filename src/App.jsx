@@ -4,6 +4,7 @@ import ListSurahPage from "./pages/ListSurahPage";
 import Surah from "./pages/Surah";
 import BookmarkPage from "./pages/BookmarkPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AppContextProvider from "./provider/AppProvider";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
-    path: "/surah",
+    path: "/list-surah",
     element: <ListSurahPage />,
   },
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <main className="mb-20">
-      <RouterProvider router={router} />
+      <AppContextProvider>
+        <RouterProvider router={router} />
+      </AppContextProvider>
     </main>
   );
 }
