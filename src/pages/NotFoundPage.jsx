@@ -19,7 +19,7 @@ export default function NotFoundPage() {
             alt="Notfound banner"
           />
           <Link
-            to="/surah"
+            to="/list-surah"
             className="-mt-10 p-4 text-center text-stone-100 font-bold bg-amber-700 rounded-2xl max-w-2/3 grayscale-30 tracking-tight"
           >
             Kembali ke halaman surat.
