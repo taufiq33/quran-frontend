@@ -21,7 +21,7 @@ export default function Homepage() {
             alt="homepage banner"
           />
           <Link
-            to="/surah"
+            to="/list-surah"
             className="-mt-10 px-10 py-4 text-center text-stone-100 font-bold bg-amber-500 rounded-2xl max-w-2/3 grayscale-30 tracking-tight"
           >
             Get Started
