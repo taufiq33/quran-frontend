@@ -5,6 +5,7 @@ import SurahBanner from "../assets/surah-banner.png";
 
 import AyahItem from "../components/AyahItem";
 import BottomNavbar from "../components/BottomNavbar";
+import SurahAndAyahNavigation from "../components/SurahAndAyahNavigation";
 
 export default function Surah() {
   const [surahData, setSurahData] = useState(null);
@@ -21,6 +22,19 @@ export default function Surah() {
     }
 
     getSurahData();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    let timeout = setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 1500);
+
+    if (audioRef.current) {
+      audioRef.current.src = "";
+      setActiveAyahPlayed(null);
+    }
+
+    return () => clearTimeout(timeout);
   }, [number]);
 
   function ayahAudioPlayEvent(src, ayah) {
@@ -35,13 +49,7 @@ export default function Surah() {
     <>
       {surahData && (
         <div className="poppins-regular">
-          <div className="header sticky top-0 z-100 bg-stone-50 shadow flex justify-between items-center gap-6 mb-4 px-4 py-2">
-            <div className="flex gap-6">
-              <h1 className="text-purple-500 grayscale-50 font-bold text-lg ">
-                {surahData.namaLatin}
-              </h1>
-            </div>
-          </div>
+          {surahData && <SurahAndAyahNavigation surahData={surahData} />}
 
           <div
             className="surah-banner p-4 rounded-xl text-white flex flex-col gap-1 justify-center items-center m-6 shadow bg-cover bg-no-repeat"

@@ -17,6 +17,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
           playStatus &&
           " border-3 rounded-xl shadow-2xl border-purple-900 p-3 bg-purple-50"
         }`}
+        id={`${ayahData.nomorAyat}`}
       >
         <div className="container-button-group bg-stone-100 flex items-center justify-between py-1 px-3 rounded-lg">
           <div className="ayah-marker text-xs border-0 p-4 rounded-full w-6 h-6 bg-purple-900 opacity-80 text-white flex justify-center items-center">

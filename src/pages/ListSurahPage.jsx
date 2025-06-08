@@ -1,30 +1,20 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useContext } from "react";
+import { Link } from "react-router-dom";
 
 import SideMenuIcon from "../assets/side-menu-icon.svg";
 import SearchIcon from "../assets/search-line.svg";
 import LastReadBanner from "../assets/last-read-banner.png";
 import QuranSmall from "../assets/quran-small.svg";
 
+import { appContext } from "../context/app-context";
 import SurahItem from "../components/SurahItem";
 import BottomNavbar from "../components/BottomNavbar";
-import { Link } from "react-router-dom";
 
 export default function ListSurahPage() {
-  const [listSurah, setListSurah] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
-
-  useEffect(() => {
-    async function getListSurah() {
-      const url = "https://equran.id/api/v2/surat";
-      const request = await fetch(url);
-      const response = await request.json();
-      setListSurah(response.data);
-    }
-
-    getListSurah();
-  }, []);
+  const { listSurah } = useContext(appContext);
 
   useEffect(() => {
     const delay = setTimeout(() => {
