@@ -13,6 +13,8 @@ import {
   checkExistingSurahData,
 } from "../helper/local-storage-helper";
 
+import { fetchSurah } from "../helper/data-fetcher-helper";
+
 export default function Surah() {
   const [surahData, setSurahData] = useState(null);
   const [activeAyahPlayed, setActiveAyahPlayed] = useState(null);
@@ -21,11 +23,9 @@ export default function Surah() {
 
   useEffect(() => {
     async function getSurahData() {
-      const url = `https://equran.id/api/v2/surat/${number}`;
-      const request = await fetch(url);
-      const response = await request.json();
-      setSurahData(response.data);
-      saveToLocalStorageSurahData(number, response.data);
+      const data = await fetchSurah(number);
+      setSurahData(data);
+      saveToLocalStorageSurahData(number, data);
     }
 
     if (checkExistingSurahData(number)) {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { fetchListSurah } from "../helper/data-fetcher-helper";
 import { appContext } from "../context/app-context";
 
 export default function AppContextProvider({ children }) {
@@ -6,11 +7,9 @@ export default function AppContextProvider({ children }) {
 
   useEffect(() => {
     async function getListSurah() {
-      const url = "https://equran.id/api/v2/surat";
-      const request = await fetch(url);
-      const response = await request.json();
-      setListSurah(response.data);
-      setLocalStorageListSurah(response.data);
+      const data = await fetchListSurah();
+      setListSurah(data);
+      setLocalStorageListSurah(data);
     }
 
     function getLocalStorageListSurah() {
