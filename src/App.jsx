@@ -5,6 +5,7 @@ import Surah from "./pages/Surah";
 import BookmarkPage from "./pages/BookmarkPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AppContextProvider from "./provider/AppProvider";
+import { saveToLocalStorageSurahData } from "./helper/local-storage-helper";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
 
 function App() {
   if (!localStorage.getItem("surahData")) {
-    localStorage.setItem("surahData", JSON.stringify([]));
+    saveToLocalStorageSurahData(0);
   }
   return (
     <main className="mb-20">

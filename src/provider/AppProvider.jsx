@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { fetchListSurah } from "../helper/data-fetcher-helper";
+import {
+  setLocalStorageListSurah,
+  getLocalStorageListSurah,
+} from "../helper/local-storage-helper";
 import { appContext } from "../context/app-context";
 
 export default function AppContextProvider({ children }) {
@@ -10,14 +14,6 @@ export default function AppContextProvider({ children }) {
       const data = await fetchListSurah();
       setListSurah(data);
       setLocalStorageListSurah(data);
-    }
-
-    function getLocalStorageListSurah() {
-      return JSON.parse(localStorage.getItem("listSurah"));
-    }
-
-    function setLocalStorageListSurah(value) {
-      return localStorage.setItem("listSurah", JSON.stringify(value));
     }
 
     const localListSurah = getLocalStorageListSurah();

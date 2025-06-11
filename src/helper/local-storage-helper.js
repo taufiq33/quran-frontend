@@ -1,4 +1,9 @@
-export function saveToLocalStorageSurahData(surahNumber, value) {
+export function saveToLocalStorageSurahData(surahNumber, value = {}) {
+  if (surahNumber === 0) {
+    // 0, mean initial surahData value, since surahNumber start with 1
+    return localStorage.setItem("surahData", JSON.stringify([]));
+  }
+
   const existingSurahData = JSON.parse(localStorage.getItem("surahData"));
 
   if (!checkExistingSurahData(surahNumber)) {
@@ -26,4 +31,12 @@ export function getLocalStorageSurahData(surahNumber) {
       (item) => item.nomor === parseInt(surahNumber)
     )[0] || false
   );
+}
+
+export function getLocalStorageListSurah() {
+  return JSON.parse(localStorage.getItem("listSurah"));
+}
+
+export function setLocalStorageListSurah(value) {
+  return localStorage.setItem("listSurah", JSON.stringify(value));
 }
