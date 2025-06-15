@@ -93,7 +93,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           <button
             className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg "
             onClick={() => {
-              prevSurah && navigate(`/surah/${prevSurah}`);
+              if (prevSurah) window.location.href = `/surah/${prevSurah}`;
             }}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
@@ -108,7 +108,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           <button
             className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg "
             onClick={() => {
-              nextSurah && navigate(`/surah/${nextSurah}`);
+              if (nextSurah) window.location.href = `/surah/${nextSurah}`;
             }}
           >
             {!nextSurah && <span>---</span>}
