@@ -5,8 +5,10 @@ import SettingsIcon from "../assets/settings_icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuran } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import { getLastReadSurah } from "../helper/local-storage-helper";
 
 export default function BottomNavbar() {
+  let lastReadSurah = getLastReadSurah() || { surahNumber: 1, ayah: 1 };
   return (
     <>
       <div className="header fixed w-full bottom-0 z-100 bg-stone-50 shadow-lg flex justify-around items-center p-2 border-t-stone-100 border-t-1">
@@ -28,7 +30,7 @@ export default function BottomNavbar() {
           className={() =>
             location.pathname.startsWith("/surah/") ? "active" : null
           }
-          to="/surah/1"
+          to={`/surah/${lastReadSurah.surahNumber}/${lastReadSurah.ayah}`}
         >
           <img className="scale-80" src={QuranMenuIcon} alt="" />
         </NavLink>

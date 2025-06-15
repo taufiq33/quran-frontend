@@ -13,16 +13,21 @@ import LoadingIndicator from "../components/LoadingIndicator";
 export default function Surah() {
   const { data: surahData } = useLoaderData();
   const [activeAyahPlayed, setActiveAyahPlayed] = useState(null);
-  const { number } = useParams();
+  const { number, ayah } = useParams();
   const audioRef = useRef();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  if (number > 114) window.location.href = "/list-surah";
 
-    let timeout = setTimeout(() => {
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }, 1500);
+  useEffect(() => {
+    let timeout = null;
+
+    if (!ayah || ayah < 2) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      timeout = setTimeout(() => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 1500);
+    }
 
     if (audioRef.current) {
       audioRef.current.src = "";
@@ -30,7 +35,7 @@ export default function Surah() {
     }
 
     return () => clearTimeout(timeout);
-  }, [number]);
+  }, [number, ayah]);
 
   function ayahAudioPlayEvent(src, ayah) {
     if (audioRef.current) {

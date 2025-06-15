@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePause } from "@fortawesome/free-regular-svg-icons";
+import { useParams } from "react-router-dom";
 
 import ShareIcon from "../assets/share-icon.svg";
 import PlayAudioIcon from "../assets/play-audio-icon.svg";
+import QuranMenuIcon from "../assets/quran-menu-icon.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
+import { saveLastReadSurah } from "../helper/local-storage-helper";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
+  const { number } = useParams();
   function handleClick() {
     onPlayAudio(ayahData.audio["05"], ayahData.nomorAyat);
   }
@@ -23,15 +26,19 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
           <div className="ayah-marker text-xs border-0 p-4 rounded-full w-6 h-6 bg-purple-900 opacity-80 text-white flex justify-center items-center">
             <span>{ayahData.nomorAyat}</span>
           </div>
-          <div className="button-group flex p-2 justify-center gap-6">
+          <div className="button-group flex p-2 justify-center items-center gap-6">
+            <img
+              className="scale-80 active"
+              src={QuranMenuIcon}
+              alt=""
+              onClick={() => saveLastReadSurah(number, ayahData.nomorAyat)}
+            />
             <img src={ShareIcon} alt="" />
-            <span>
-              {playStatus && <FontAwesomeIcon size="xl" icon={faCirclePause} />}
-
-              {!playStatus && (
+            {!playStatus && (
+              <span>
                 <img onClick={() => handleClick()} src={PlayAudioIcon} alt="" />
-              )}
-            </span>
+              </span>
+            )}
 
             <img src={BookmarkIconPurple} alt="" />
           </div>

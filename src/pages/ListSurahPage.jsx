@@ -10,11 +10,15 @@ import { appContext } from "../context/app-context";
 import SurahItem from "../components/SurahItem";
 import BottomNavbar from "../components/BottomNavbar";
 
+import { getLastReadSurah } from "../helper/local-storage-helper";
+
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
   const { listSurah } = useContext(appContext);
+
+  const lastRead = getLastReadSurah();
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -73,19 +77,26 @@ export default function ListSurahPage() {
               </h2>
             </div>
 
-            <div
-              className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in`}
-              style={{ backgroundImage: `url(${LastReadBanner})` }}
-            >
-              <div className="last-read flex gap-2 mb-4">
-                <img src={QuranSmall} alt="" />
-                <span className="text-sm">Terakhir dibaca</span>
+            {lastRead && (
+              <div
+                className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in`}
+                style={{ backgroundImage: `url(${LastReadBanner})` }}
+                onClick={() =>
+                  (window.location.href = `/surah/${lastRead.surahNumber}/${lastRead.ayah}`)
+                }
+              >
+                <div className="last-read flex gap-2 mb-4">
+                  <img src={QuranSmall} alt="" />
+                  <span className="text-sm">Terakhir dibaca</span>
+                </div>
+                <div className="last-surah-ayah">
+                  <h4 className="font-bold text-lg">
+                    {listSurah[lastRead.surahNumber - 1].namaLatin}
+                  </h4>
+                  <p className="text-xs opacity-80">Ayat No: {lastRead.ayah}</p>
+                </div>
               </div>
-              <div className="last-surah-ayah">
-                <h4 className="font-bold text-lg">Al-Fatihah</h4>
-                <p className="text-xs opacity-80">Ayat No: 1</p>
-              </div>
-            </div>
+            )}
           </>
         )}
 

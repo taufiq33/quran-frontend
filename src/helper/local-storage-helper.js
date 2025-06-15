@@ -40,3 +40,18 @@ export function getLocalStorageListSurah() {
 export function setLocalStorageListSurah(value) {
   return localStorage.setItem("listSurah", JSON.stringify(value));
 }
+
+export function saveLastReadSurah(surahNumber = 0, ayah) {
+  if (surahNumber === 0) return localStorage.setItem("lastReadSurah", null);
+  return localStorage.setItem(
+    "lastReadSurah",
+    JSON.stringify({
+      surahNumber,
+      ayah,
+    })
+  );
+}
+
+export function getLastReadSurah() {
+  return JSON.parse(localStorage.getItem("lastReadSurah")) || null;
+}

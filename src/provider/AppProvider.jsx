@@ -25,8 +25,8 @@ export default function AppContextProvider({ children }) {
   }, []);
 
   const contextValue = {
-    listSurah: listSurah,
-    setListSurah: setListSurah,
+    listSurah,
+    setListSurah,
   };
 
   return (

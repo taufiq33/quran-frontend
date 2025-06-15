@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     element: <ListSurahPage />,
   },
   {
-    path: "/surah/:number",
+    path: "/surah/:number/:ayah?",
     element: <Surah />,
     loader: SurahLoader,
   },

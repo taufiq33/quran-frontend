@@ -2,34 +2,46 @@ import { useContext, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { appContext } from "../context/app-context";
+import { saveLastReadSurah } from "../helper/local-storage-helper";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 
 export default function SurahAndAyahNavigation({ surahData }) {
   const [selectedSurah, setSelectedSurah] = useState(null);
   const [selectedAyah, setSelectedAyah] = useState(0);
   const { listSurah } = useContext(appContext);
-  const { number } = useParams();
+  const { number, ayah } = useParams();
   const navigate = useNavigate();
+
+  const handleSelectAyah = useCallback(
+    (ayahNumber) => {
+      if (ayahNumber < surahData.jumlahAyat) {
+        const selectedAyahElement = document.getElementById(ayahNumber);
+        const elementTop =
+          selectedAyahElement.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementTop - 100,
+          behavior: "smooth",
+        });
+        saveLastReadSurah(number, ayahNumber);
+        setSelectedAyah(ayahNumber);
+      }
+    },
+    [number, surahData.jumlahAyat]
+  );
 
   useEffect(() => {
     setSelectedSurah(number);
-    setSelectedAyah(0);
-  }, [number]);
+    if (ayah > 1) {
+      handleSelectAyah(ayah);
+    } else {
+      setSelectedAyah(0);
+    }
+  }, [number, ayah, handleSelectAyah]);
 
   function handleSelectSurah(e) {
     setSelectedSurah(e.target.value);
-    navigate(`/surah/${e.target.value}`);
-  }
-
-  function handleSelectAyah(e) {
-    setSelectedAyah(e.target.value);
-    const selectedAyahElement = document.getElementById(e.target.value);
-    const elementTop =
-      selectedAyahElement.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({
-      top: elementTop - 100,
-      behavior: "smooth",
-    });
+    window.location.href = `/surah/${e.target.value}`;
   }
 
   const prevSurah = number > 1 ? parseInt(number) - 1 : null;
@@ -66,7 +78,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           </select>
           <select
             value={selectedAyah}
-            onChange={handleSelectAyah}
+            onChange={(e) => handleSelectAyah(e.target.value)}
             className=" border-1 border-stone-200 bg-white p-1 rounded-lg "
           >
             <option value={0}>Lompat ke ayat</option>
