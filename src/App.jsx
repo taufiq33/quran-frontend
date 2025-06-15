@@ -5,6 +5,8 @@ import Surah from "./pages/Surah";
 import BookmarkPage from "./pages/BookmarkPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AppContextProvider from "./provider/AppProvider";
+
+import { loader as SurahLoader } from "./pages/Surah";
 import { saveToLocalStorageSurahData } from "./helper/local-storage-helper";
 
 const router = createBrowserRouter([
@@ -19,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/surah/:number",
     element: <Surah />,
+    loader: SurahLoader,
   },
   {
     path: "/bookmark",
