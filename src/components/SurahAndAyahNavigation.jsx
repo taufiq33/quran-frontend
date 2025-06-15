@@ -15,7 +15,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
 
   const handleSelectAyah = useCallback(
     (ayahNumber) => {
-      if (ayahNumber < surahData.jumlahAyat) {
+      if (ayahNumber <= surahData.jumlahAyat) {
         const selectedAyahElement = document.getElementById(ayahNumber);
         const elementTop =
           selectedAyahElement.getBoundingClientRect().top + window.pageYOffset;
