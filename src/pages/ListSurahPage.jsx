@@ -10,16 +10,23 @@ import { appContext } from "../context/app-context";
 import SurahItem from "../components/SurahItem";
 import BottomNavbar from "../components/BottomNavbar";
 
-import { getLastReadSurah } from "../helper/local-storage-helper";
+import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
+import AskUsername from "../components/AskUsername";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
-  const { listSurah } = useContext(appContext);
+  const { listSurah, showModal } = useContext(appContext);
 
   const lastRead = getLastReadSurah();
+
+  useEffect(() => {
+    if (!getUsername()) {
+      showModal(<AskUsername />);
+    }
+  }, [showModal]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -87,7 +94,7 @@ export default function ListSurahPage() {
               <div className="welcome-banner flex flex-col mb-6 px-4 duration-300 ease-in">
                 <h3 className="text-stone-500 mb-1">Assalamualaikum</h3>
                 <h2 className="text-stone-700 font-bold tracking-widest text-lg">
-                  Taufiq Hidayat
+                  {getUsername() || ""}
                 </h2>
               </div>
 
