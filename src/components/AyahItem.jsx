@@ -6,11 +6,26 @@ import PlayAudioIcon from "../assets/play-audio-icon.svg";
 import QuranMenuIcon from "../assets/quran-menu-icon.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
 import { saveLastReadSurah } from "../helper/local-storage-helper";
+import { useContext } from "react";
+import { appContext } from "../context/app-context";
+import Notification from "./Notification";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   const { number } = useParams();
+  const { showModal } = useContext(appContext);
   function handleClick() {
     onPlayAudio(ayahData.audio["05"], ayahData.nomorAyat);
+  }
+
+  function handleLastReadClick() {
+    saveLastReadSurah(number, ayahData.nomorAyat);
+    showModal(
+      <Notification
+        title="Berhasil"
+        message="ayat ini berhasil ditandai sebagai 'terakhir dibaca'"
+      />,
+      true
+    );
   }
 
   return (
@@ -31,7 +46,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
               className="scale-80 active"
               src={QuranMenuIcon}
               alt=""
-              onClick={() => saveLastReadSurah(number, ayahData.nomorAyat)}
+              onClick={() => handleLastReadClick()}
             />
             <img src={ShareIcon} alt="" />
             {!playStatus && (

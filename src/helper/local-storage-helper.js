@@ -55,3 +55,11 @@ export function saveLastReadSurah(surahNumber = 0, ayah) {
 export function getLastReadSurah() {
   return JSON.parse(localStorage.getItem("lastReadSurah")) || null;
 }
+
+export function getUsername() {
+  return localStorage.getItem("username") || null;
+}
+
+export function setUsername(name) {
+  return localStorage.setItem("username", name);
+}
