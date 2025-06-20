@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { appContext } from "../context/app-context";
-import { saveLastReadSurah } from "../helper/local-storage-helper";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
@@ -23,11 +22,10 @@ export default function SurahAndAyahNavigation({ surahData }) {
           top: elementTop - 100,
           behavior: "smooth",
         });
-        saveLastReadSurah(number, ayahNumber);
         setSelectedAyah(ayahNumber);
       }
     },
-    [number, surahData.jumlahAyat]
+    [surahData.jumlahAyat]
   );
 
   useEffect(() => {
