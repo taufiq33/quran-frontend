@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import FolderPlusIcon from "../assets/folder-plus.svg";
 import SideMenuIcon from "../assets/side-menu-icon.svg";
 import SearchIcon from "../assets/search-line.svg";
@@ -6,7 +7,10 @@ import SortIcon from "../assets/sort-icon.svg";
 import BottomNavbar from "../components/BottomNavbar";
 import BookmarkCollection from "../components/BookmarkCollection";
 
+import { appContext } from "../context/app-context";
+
 export default function BookmarkPage() {
+  const { bookmark } = useContext(appContext);
   return (
     <>
       <div className="poppins-regular">
@@ -32,9 +36,9 @@ export default function BookmarkPage() {
             </button>
           </div>
           <div className="bookmark-list">
-            <BookmarkCollection />
-            <BookmarkCollection />
-            <BookmarkCollection />
+            {bookmark.map((item) => (
+              <BookmarkCollection data={item} key={item.collectionId} />
+            ))}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 export const appContext = createContext({
   listSurah: [],
+  bookmark: [],
   setListSurah: () => {},
   showModal: () => {},
   closeModal: () => {},

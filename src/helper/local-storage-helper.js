@@ -63,3 +63,44 @@ export function getUsername() {
 export function setUsername(name) {
   return localStorage.setItem("username", name);
 }
+
+export function saveBookmark(surahNumber, surahName, ayah, collectionId = 1) {
+  const newBookmark = {
+    id: `${collectionId}@${surahNumber}-${ayah}`,
+    surahNumber,
+    ayah,
+    surahName,
+  };
+
+  const collections = JSON.parse(localStorage.getItem("bookmark"));
+
+  const addedCollection = collections.find(
+    (item) => item.collectionId === collectionId
+  );
+
+  const bookmarkExisting = addedCollection.lists.find(
+    (item) => item.id === newBookmark.id
+  );
+
+  if (!bookmarkExisting) {
+    addedCollection.lists.push(newBookmark);
+    const newCollections = collections.map((item) => {
+      if (item.collectionId === addedCollection.collectionId) {
+        return addedCollection;
+      } else {
+        return item;
+      }
+    });
+
+    localStorage.setItem("bookmark", JSON.stringify(newCollections));
+    return {
+      error: 0,
+      message: `Surat ${surahName} ayat ${ayah} berhasil ditambahkan ke folder bookmark  ${addedCollection.collectionName}`,
+    };
+  } else {
+    return {
+      error: 1,
+      message: `Surat ${surahName} ayat ${ayah} sudah tersedia di folder bookmark ${addedCollection.collectionName}`,
+    };
+  }
+}

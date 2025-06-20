@@ -5,14 +5,19 @@ import ShareIcon from "../assets/share-icon.svg";
 import PlayAudioIcon from "../assets/play-audio-icon.svg";
 import QuranMenuIcon from "../assets/quran-menu-icon.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
-import { saveLastReadSurah } from "../helper/local-storage-helper";
+import {
+  saveBookmark,
+  saveLastReadSurah,
+} from "../helper/local-storage-helper";
 import { useContext } from "react";
 import { appContext } from "../context/app-context";
 import Notification from "./Notification";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   const { number } = useParams();
-  const { showModal } = useContext(appContext);
+  const { showModal, listSurah } = useContext(appContext);
+  const surahName = listSurah.find((item) => item.nomor == number).namaLatin;
+
   function handleClick() {
     onPlayAudio(ayahData.audio["05"], ayahData.nomorAyat);
   }
@@ -22,8 +27,20 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
     showModal(
       <Notification
         title="Berhasil"
-        message="ayat ini berhasil ditandai sebagai 'terakhir dibaca'"
+        message={`${surahName} ayat ${ayahData.nomorAyat} berhasil ditandai sebagai 'terakhir dibaca'`}
       />,
+      true
+    );
+  }
+
+  function handleBookmarkClick() {
+    const { error, message } = saveBookmark(
+      number,
+      surahName,
+      ayahData.nomorAyat
+    );
+    showModal(
+      <Notification title={error ? "Gagal" : "Berhasil"} message={message} />,
       true
     );
   }
@@ -55,7 +72,11 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
               </span>
             )}
 
-            <img src={BookmarkIconPurple} alt="" />
+            <img
+              src={BookmarkIconPurple}
+              alt=""
+              onClick={handleBookmarkClick}
+            />
           </div>
         </div>
 

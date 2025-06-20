@@ -10,6 +10,9 @@ import { useCallback } from "react";
 
 export default function AppContextProvider({ children }) {
   const [listSurah, setListSurah] = useState([]);
+  const [bookmark, setBookmark] = useState(
+    JSON.parse(localStorage.getItem("bookmark"))
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [autoCloseModal, setAutoCloseModal] = useState(false);
@@ -44,6 +47,7 @@ export default function AppContextProvider({ children }) {
 
   const contextValue = {
     listSurah,
+    bookmark,
     setListSurah,
     showModal,
     closeModal,

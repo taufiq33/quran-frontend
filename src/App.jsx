@@ -37,6 +37,19 @@ function App() {
   if (!localStorage.getItem("surahData")) {
     saveToLocalStorageSurahData(0);
   }
+
+  if (!localStorage.getItem("bookmark")) {
+    localStorage.setItem(
+      "bookmark",
+      JSON.stringify([
+        {
+          collectionId: 1,
+          collectionName: "My Favorite",
+          lists: [],
+        },
+      ])
+    );
+  }
   return (
     <main className="mb-20">
       <AppContextProvider>
