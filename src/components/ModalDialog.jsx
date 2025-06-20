@@ -17,7 +17,7 @@ export default function ModalDialog({
     if (autoClose) {
       timeout = setTimeout(() => {
         onClose();
-      }, 1500);
+      }, 2500);
     }
 
     return () => {
