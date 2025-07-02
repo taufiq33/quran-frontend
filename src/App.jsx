@@ -43,7 +43,7 @@ function App() {
       "bookmark",
       JSON.stringify([
         {
-          collectionId: 1,
+          collectionId: "default",
           collectionName: "My Favorite",
           lists: [],
         },
