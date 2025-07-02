@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import ShareIcon from "../assets/share-icon.svg";
 import PlayAudioIcon from "../assets/play-audio-icon.svg";
@@ -14,6 +15,7 @@ import Notification from "./Notification";
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   const { number } = useParams();
   const seletedCollectionIdRef = useRef();
+  const [showTooltips, setShowTooltips] = useState(false);
   const {
     showModal,
     listSurah,
@@ -23,6 +25,24 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
     replaceModalContent,
   } = useContext(appContext);
   const surahName = listSurah.find((item) => item.nomor == number).namaLatin;
+
+  useEffect(() => {
+    if (ayahData.nomorAyat === 1) {
+      // Delay 1 detik sebelum muncul tooltip
+      const showTimeout = setTimeout(() => {
+        setShowTooltips(true);
+
+        // Auto close setelah 10 detik
+        const hideTimeout = setTimeout(() => {
+          setShowTooltips(false);
+        }, 10000);
+
+        return () => clearTimeout(hideTimeout);
+      }, 1000);
+
+      return () => clearTimeout(showTimeout);
+    }
+  }, [ayahData.nomorAyat]);
 
   function handleClick() {
     onPlayAudio(ayahData.audio["05"], ayahData.nomorAyat);
@@ -99,15 +119,6 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
         </div>
       </>
     );
-    // const { error, message } = saveAndSyncBookmark(
-    //   number,
-    //   surahName,
-    //   ayahData.nomorAyat
-    // );
-    // showModal(
-    //   <Notification title={error ? "Gagal" : "Berhasil"} message={message} />,
-    //   true
-    // );
   }
 
   return (
@@ -124,24 +135,90 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
             <span>{ayahData.nomorAyat}</span>
           </div>
           <div className="button-group flex p-2 justify-center items-center gap-6">
-            <img
-              className="scale-80 active"
-              src={QuranMenuIcon}
-              alt=""
-              onClick={() => handleLastReadClick()}
-            />
-            <img src={ShareIcon} alt="" />
+            {/* Last Read Button - Tooltip di atas dengan panah bawah */}
+            <div className="relative">
+              <img
+                className="scale-80 active"
+                src={QuranMenuIcon}
+                alt=""
+                onClick={handleLastReadClick}
+              />
+              {showTooltips && (
+                <div className="relative">
+                  <div
+                    className="absolute -top-20 -left-8 bg-purple-600 text-white text-[10px] 
+                    px-2 py-1 rounded w-24 text-center"
+                  >
+                    Tandai terakhir dibaca
+                    <div
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 
+                      w-2 h-2 bg-purple-600 rotate-45"
+                    ></div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Share Button - Tooltip di bawah dengan panah atas */}
+            <div className="relative">
+              <img src={ShareIcon} alt="" />
+              {showTooltips && (
+                <div className="relative">
+                  <div
+                    className="absolute top-1 -left-6 bg-purple-600 text-white text-[10px] 
+                    px-2 py-1 rounded w-16 text-center"
+                  >
+                    Bagikan
+                    <div
+                      className="absolute -top-1 left-1/2 -translate-x-1/2 
+                      w-2 h-2 bg-purple-600 rotate-45"
+                    ></div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Play Button - Tooltip di atas dengan panah bawah */}
             {!playStatus && (
-              <span>
-                <img onClick={() => handleClick()} src={PlayAudioIcon} alt="" />
-              </span>
+              <div className="relative">
+                <img onClick={handleClick} src={PlayAudioIcon} alt="" />
+                {showTooltips && (
+                  <div
+                    className="absolute -top-11 -left-6 bg-purple-600 text-white text-[10px] 
+                    px-2 py-1 rounded w-16 text-center
+                    "
+                  >
+                    Putar audio
+                    <div
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 
+                      w-2 h-2 bg-purple-600 rotate-45"
+                    ></div>
+                  </div>
+                )}
+              </div>
             )}
 
-            <img
-              src={BookmarkIconPurple}
-              alt=""
-              onClick={handleBookmarkClick}
-            />
+            {/* Bookmark Button - Tooltip di bawah dengan panah atas */}
+            <div className="relative">
+              <img
+                src={BookmarkIconPurple}
+                alt=""
+                onClick={handleBookmarkClick}
+              />
+              {showTooltips && (
+                <div
+                  className="absolute top-7 -left-4 bg-purple-600 text-white text-[10px] 
+                  px-2 py-1 rounded w-16 text-center
+                  "
+                >
+                  Bookmark
+                  <div
+                    className="absolute -top-1 left-1/2 -translate-x-1/2 
+                      w-2 h-2 bg-purple-600 rotate-45"
+                  ></div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
