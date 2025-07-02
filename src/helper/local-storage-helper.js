@@ -1,3 +1,7 @@
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+}
+
 export function saveToLocalStorageSurahData(surahNumber, value = {}) {
   if (surahNumber === 0) {
     // 0, mean initial surahData value, since surahNumber start with 1
@@ -64,7 +68,12 @@ export function setUsername(name) {
   return localStorage.setItem("username", name);
 }
 
-export function saveBookmark(surahNumber, surahName, ayah, collectionId = 1) {
+export function saveBookmark(
+  surahNumber,
+  surahName,
+  ayah,
+  collectionId = "default"
+) {
   const newBookmark = {
     id: `${collectionId}@${surahNumber}-${ayah}`,
     surahNumber,
@@ -103,4 +112,67 @@ export function saveBookmark(surahNumber, surahName, ayah, collectionId = 1) {
       message: `Surat ${surahName} ayat ${ayah} sudah tersedia di folder bookmark ${addedCollection.collectionName}`,
     };
   }
+}
+
+export function deleteBookmark(bookmarkId, collectionId) {
+  const collections = JSON.parse(localStorage.getItem("bookmark")).map(
+    (collection) => {
+      if (collection.collectionId === collectionId) {
+        const newCollection = {
+          ...collection,
+          lists: collection.lists.filter(
+            (bookmark) => bookmark.id !== bookmarkId
+          ),
+        };
+        return newCollection;
+      } else {
+        return collection;
+      }
+    }
+  );
+
+  localStorage.setItem("bookmark", JSON.stringify(collections));
+}
+
+export function addNewCollection(collectionName) {
+  if (collectionName.length < 1) return;
+  const newCollection = {
+    collectionId: generateId(),
+    collectionName,
+    lists: [],
+  };
+
+  const collections = JSON.parse(localStorage.getItem("bookmark"));
+  collections.push(newCollection);
+
+  localStorage.setItem("bookmark", JSON.stringify(collections));
+}
+
+export function renameCollection(collectionId, newCollectionName) {
+  if (newCollectionName.length < 1) return;
+
+  const collections = JSON.parse(localStorage.getItem("bookmark")).map(
+    (collection) => {
+      if (collection.collectionId === collectionId) {
+        const newCollection = {
+          ...collection,
+          collectionName: newCollectionName,
+        };
+
+        return newCollection;
+      } else {
+        return collection;
+      }
+    }
+  );
+
+  localStorage.setItem("bookmark", JSON.stringify(collections));
+}
+
+export function deleteCollection(collectionId) {
+  const collections = JSON.parse(localStorage.getItem("bookmark")).filter(
+    (collection) => collection.collectionId !== collectionId
+  );
+
+  localStorage.setItem("bookmark", JSON.stringify(collections));
 }

@@ -8,4 +8,10 @@ export const appContext = createContext({
   closeModal: () => {},
   modalOpen: false,
   modalContent: "",
+  replaceModalContent: () => {},
+  saveAndSyncBookmark: () => {},
+  deleteAndSyncBookmark: () => {},
+  addNewCollectionAndSyncBookmark: () => {},
+  renameCollectionAndSyncBookmark: () => {},
+  deleteCollectionAndSyncBookmark: () => {},
 });
