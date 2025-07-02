@@ -82,16 +82,37 @@ export default function Surah() {
                 ))}
               </div>
 
-              <audio
-                className="sticky bottom-14 w-full p-1 scale-95"
-                src={null}
-                ref={audioRef}
-                controls
-                onEnded={(event) => {
-                  event.target.src = null;
-                  setActiveAyahPlayed(null);
-                }}
-              ></audio>
+              <div className="fixed bottom-14 left-0 right-0 mx-auto w-full px-3">
+                <div className="max-w-xl mx-auto relative">
+                  {activeAyahPlayed && (
+                    <div
+                      className="text-xs text-white bg-purple-600/80 
+                        rounded-t-lg px-3 py-2 font-medium -mb-1 inline-block"
+                    >
+                      {loadedSurahData.namaLatin} • Ayat {activeAyahPlayed}
+                    </div>
+                  )}
+                  <audio
+                    className="w-full bg-purple-200/80 shadow-lg rounded-lg p-3 
+                      border-2 border-purple-400
+
+                      [&::-webkit-media-controls-current-time-display]:text-purple-900
+                      [&::-webkit-media-controls-time-remaining-display]:text-purple-900
+                      [&::-webkit-media-controls-timeline]:text-purple-200
+                      [&::-webkit-media-controls-play-button]:text-white
+                      [&::-webkit-media-controls-volume-slider]:accent-purple-200
+                      [&::-webkit-media-controls-mute-button]:text-white
+                      hover:bg-purple-700 transition-colors duration-300"
+                    src={null}
+                    ref={audioRef}
+                    controls
+                    onEnded={(event) => {
+                      event.target.src = null;
+                      setActiveAyahPlayed(null);
+                    }}
+                  />
+                </div>
+              </div>
 
               <BottomNavbar />
             </>
