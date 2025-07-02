@@ -41,7 +41,7 @@ export default function ListSurahPage() {
   useEffect(() => {
     const delay = setTimeout(() => {
       setDebouncedKeyword(keyword.trim());
-    }, 100);
+    }, 1000);
     return () => clearTimeout(delay);
   }, [keyword]);
 
@@ -51,7 +51,7 @@ export default function ListSurahPage() {
     const cleanedKeyword = debouncedKeyword
       .replace(/[^a-zA-Z0-9 ]/g, "")
       .toLowerCase();
-    const regex = new RegExp(cleanedKeyword, "i");
+    // const regex = new RegExp(cleanedKeyword, "i");
 
     return listSurah.filter((item) => {
       const cleanedNamaLatin = item.namaLatin
@@ -59,7 +59,8 @@ export default function ListSurahPage() {
         .toLowerCase();
       return (
         item.nomor.toString() === debouncedKeyword.toString() ||
-        regex.test(cleanedNamaLatin)
+        // regex.test(cleanedNamaLatin)
+        cleanedNamaLatin.includes(cleanedKeyword)
       );
     });
   }, [debouncedKeyword, listSurah]);
@@ -134,6 +135,7 @@ export default function ListSurahPage() {
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 placeholder="cari nama/nomor surat..."
+                autoComplete="off"
               />
             </div>
 
