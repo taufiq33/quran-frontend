@@ -1,21 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 
 import ShareIcon from "../assets/share-icon.svg";
 import PlayAudioIcon from "../assets/play-audio-icon.svg";
 import QuranMenuIcon from "../assets/quran-menu-icon.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
-import {
-  saveBookmark,
-  saveLastReadSurah,
-} from "../helper/local-storage-helper";
-import { useContext } from "react";
+import { saveLastReadSurah } from "../helper/local-storage-helper";
+import { useContext, useRef } from "react";
 import { appContext } from "../context/app-context";
 import Notification from "./Notification";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   const { number } = useParams();
-  const { showModal, listSurah } = useContext(appContext);
+  const seletedCollectionIdRef = useRef();
+  const {
+    showModal,
+    listSurah,
+    saveAndSyncBookmark,
+    bookmark,
+    closeModal,
+    replaceModalContent,
+  } = useContext(appContext);
   const surahName = listSurah.find((item) => item.nomor == number).namaLatin;
 
   function handleClick() {
@@ -34,15 +40,74 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   }
 
   function handleBookmarkClick() {
-    const { error, message } = saveBookmark(
-      number,
-      surahName,
-      ayahData.nomorAyat
-    );
     showModal(
-      <Notification title={error ? "Gagal" : "Berhasil"} message={message} />,
-      true
+      <>
+        <div className="p-4 block relative">
+          <button
+            onClick={closeModal}
+            className="absolute top-0 right-0 p-1 bg-red-700 rounded"
+          >
+            <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
+          </button>
+          <h2 className="text-lg mb-2 font-bold">Simpan bookmark</h2>
+          <p className="mb-2">
+            {surahName} ayat {ayahData.nomorAyat} <br /> Silahkan pilih
+            collection..
+          </p>
+
+          <select
+            name=""
+            id=""
+            ref={seletedCollectionIdRef}
+            className="border-1 border-stone-500 font-bold bg-white rounded-lg my-4"
+          >
+            {bookmark.map((collection) => (
+              <option
+                key={collection.collectionId}
+                value={collection.collectionId}
+              >
+                {collection.collectionName}
+              </option>
+            ))}
+          </select>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
+              onClick={() => {
+                const { error, message } = saveAndSyncBookmark(
+                  number,
+                  surahName,
+                  ayahData.nomorAyat,
+                  seletedCollectionIdRef.current.value
+                );
+                console.log(error, message);
+                closeModal(() => {
+                  replaceModalContent(
+                    <Notification
+                      title={error ? "Gagal" : "Berhasil"}
+                      message={message}
+                    />,
+                    true
+                  );
+                });
+              }}
+            >
+              Simpan
+            </button>
+          </div>
+        </div>
+      </>
     );
+    // const { error, message } = saveAndSyncBookmark(
+    //   number,
+    //   surahName,
+    //   ayahData.nomorAyat
+    // );
+    // showModal(
+    //   <Notification title={error ? "Gagal" : "Berhasil"} message={message} />,
+    //   true
+    // );
   }
 
   return (
