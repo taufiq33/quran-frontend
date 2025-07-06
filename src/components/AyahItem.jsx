@@ -11,6 +11,7 @@ import { saveLastReadSurah } from "../helper/local-storage-helper";
 import { useContext, useRef } from "react";
 import { appContext } from "../context/app-context";
 import Notification from "./Notification";
+import Ayah from "./Ayah";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   const { number } = useParams();
@@ -222,19 +223,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
           </div>
         </div>
 
-        <div className="ayah-section flex flex-col gap-8">
-          <div className="arabic-ayah arabic flex text-3xl text-right justify-end">
-            <span>{ayahData.teksArab}</span>
-          </div>
-
-          <div className="translation-ayah italic text-sm text-stone-800">
-            {ayahData.teksLatin}
-          </div>
-
-          <div className="translation-ayah text-sm text-stone-500">
-            {ayahData.teksIndonesia}
-          </div>
-        </div>
+        <Ayah ayah={ayahData} />
       </div>
     </>
   );
