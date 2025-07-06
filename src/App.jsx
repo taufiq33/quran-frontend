@@ -3,6 +3,7 @@ import Homepage from "./pages/Homepage";
 import ListSurahPage from "./pages/ListSurahPage";
 import Surah from "./pages/Surah";
 import BookmarkPage from "./pages/BookmarkPage";
+import SettingPage from "./pages/SettingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AppContextProvider from "./provider/AppProvider";
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/bookmark",
     element: <BookmarkPage />,
+  },
+  {
+    path: "/settings",
+    element: <SettingPage />,
   },
   {
     path: "*",
