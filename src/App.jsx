@@ -55,6 +55,22 @@ function App() {
       ])
     );
   }
+
+  if (!localStorage.getItem("settings")) {
+    localStorage.setItem(
+      "settings",
+      JSON.stringify({
+        interfaceSetting: {
+          arabicFontSize: "normal",
+          showTranslation: true,
+          showTransliteration: true,
+        },
+        qori: "05",
+        lokasi: "1425",
+      })
+    );
+  }
+
   return (
     <main className="mb-20">
       <AppContextProvider>

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { appContext } from "../context/app-context";
 import LoadingIndicator from "./LoadingIndicator";
 
 export default function SettingLokasi() {
   // This component is for setting the city location for prayer times.
   const [listKota, setListKota] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [selectedKota, setSelectedKota] = useState("");
+  const { settings, handleSaveSettings } = useContext(appContext);
 
   useEffect(() => {
     async function getListKota() {
@@ -39,10 +40,13 @@ export default function SettingLokasi() {
       <div className="section-tampilan bg-white p-4 border-transparent shadow-md m-2 rounded-xl">
         <h2 className="text-lg font-bold mb-2">Lokasi Kota Anda Sekarang</h2>
         <p className="text-sm mb-1 text-stone-800 italic">
-          {selectedKota ? (
+          {settings.lokasi ? (
             <span>
               {" "}
-              Lokasi Kota Anda sekarang adalah <b>{selectedKota}</b>
+              Lokasi Kota Anda sekarang adalah{" "}
+              <b>
+                {listKota.find((item) => item.id === settings.lokasi).lokasi}
+              </b>
             </span>
           ) : (
             <span>Anda belum memilih lokasi kota.</span>
@@ -76,8 +80,12 @@ export default function SettingLokasi() {
                     name="kota"
                     id={item.id}
                     type="radio"
-                    value={item.lokasi}
-                    onChange={() => setSelectedKota(item.lokasi)}
+                    value={item.id}
+                    defaultChecked={settings.lokasi === item.id}
+                    onChange={() =>
+                      handleSaveSettings({ ...settings, lokasi: item.id })
+                    }
+                    className="cursor-pointer w-4 h-4 accent-purple-600"
                   />
                   <label htmlFor={item.id} className="text-sm ml-2">
                     {item.lokasi}

@@ -176,3 +176,11 @@ export function deleteCollection(collectionId) {
 
   localStorage.setItem("bookmark", JSON.stringify(collections));
 }
+
+export function saveSettings(settingsObject) {
+  const newSettings = {
+    ...settingsObject,
+    id: generateId(),
+  };
+  localStorage.setItem("settings", JSON.stringify(newSettings));
+}

@@ -8,6 +8,7 @@ import {
   addNewCollection,
   renameCollection,
   deleteCollection,
+  saveSettings,
 } from "../helper/local-storage-helper";
 import { appContext } from "../context/app-context";
 import ModalDialog from "../components/ModalDialog";
@@ -20,6 +21,9 @@ export default function AppContextProvider({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [autoCloseModal, setAutoCloseModal] = useState(false);
+  const [settings, setSettings] = useState(
+    JSON.parse(localStorage.getItem("settings")) || {}
+  );
 
   useEffect(() => {
     async function getListSurah() {
@@ -104,6 +108,11 @@ export default function AppContextProvider({ children }) {
     syncBookmark();
   }
 
+  function handleSaveSettings(newSettings) {
+    setSettings(newSettings);
+    saveSettings(newSettings);
+  }
+
   const contextValue = {
     listSurah,
     bookmark,
@@ -118,6 +127,8 @@ export default function AppContextProvider({ children }) {
     addNewCollectionAndSyncBookmark,
     renameCollectionAndSyncBookmark,
     deleteCollectionAndSyncBookmark,
+    settings,
+    handleSaveSettings,
   };
 
   return (

@@ -24,6 +24,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
     bookmark,
     closeModal,
     replaceModalContent,
+    settings,
   } = useContext(appContext);
   const surahName = listSurah.find((item) => item.nomor == number).namaLatin;
 
@@ -46,7 +47,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   }, [ayahData.nomorAyat]);
 
   function handleClick() {
-    onPlayAudio(ayahData.audio["05"], ayahData.nomorAyat);
+    onPlayAudio(ayahData.audio[settings.qori], ayahData.nomorAyat);
   }
 
   function handleLastReadClick() {
@@ -223,7 +224,12 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
           </div>
         </div>
 
-        <Ayah ayah={ayahData} />
+        <Ayah
+          ayah={ayahData}
+          arabicFontSize={settings.interfaceSetting.arabicFontSize}
+          showTranslation={settings.interfaceSetting.showTranslation}
+          showTransliteration={settings.interfaceSetting.showTransliteration}
+        />
       </div>
     </>
   );

@@ -14,4 +14,6 @@ export const appContext = createContext({
   addNewCollectionAndSyncBookmark: () => {},
   renameCollectionAndSyncBookmark: () => {},
   deleteCollectionAndSyncBookmark: () => {},
+  settings: {},
+  handleSaveSettings: () => {},
 });
