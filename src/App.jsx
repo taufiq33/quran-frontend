@@ -9,6 +9,7 @@ import AppContextProvider from "./provider/AppProvider";
 
 import { loader as SurahLoader } from "./pages/Surah";
 import { saveToLocalStorageSurahData } from "./helper/local-storage-helper";
+import SholatPage from "./pages/SholatPage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/list-surah",
     element: <ListSurahPage />,
+  },
+  {
+    path: "/sholat",
+    element: <SholatPage />, // Placeholder for SholatPage component
   },
   {
     path: "/surah/:number/:ayah?",

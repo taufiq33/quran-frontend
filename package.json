@@ -16,7 +16,9 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@tailwindcss/vite": "^4.1.5",
     "fontawesome-svg-core~": "link:\u001b[200~@fortawesome/fontawesome-svg-core~",
+    "hijri-date-converter": "^1.0.2",
     "react": "^19.0.0",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.3"
   },
