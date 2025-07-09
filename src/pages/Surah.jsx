@@ -49,7 +49,7 @@ export default function Surah() {
     <Suspense fallback={<LoadingIndicator />}>
       <Await resolve={surahData}>
         {(loadedSurahData) => (
-          <div className="poppins-regular">
+          <div className="poppins-regular mb-30">
             <SurahAndAyahNavigation surahData={loadedSurahData} />
 
             <>
@@ -113,7 +113,6 @@ export default function Surah() {
                   />
                 </div>
               </div>
-
               <BottomNavbar />
             </>
           </div>
