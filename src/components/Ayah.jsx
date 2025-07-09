@@ -8,10 +8,10 @@ export default function Ayah({
 }) {
   return (
     <div className="ayah-section flex flex-col gap-8">
-      <div className={`arabic-ayah arabic flex text-right justify-end `}>
-        <span className={`${ARABIC_FONT_SIZE[arabicFontSize]}`}>
-          {ayah.teksArab}
-        </span>
+      <div
+        className={`arabic-ayah arabic flex text-right justify-end ${ARABIC_FONT_SIZE[arabicFontSize]} `}
+      >
+        <span>{ayah.teksArab}</span>
       </div>
 
       {showTransliteration && (
