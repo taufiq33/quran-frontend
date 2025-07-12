@@ -5,6 +5,7 @@ import BottomNavbar from "../components/BottomNavbar";
 import LoadingIndicator from "../components/LoadingIndicator";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { formatGregorianDate, getHijriDate } from "../utils/dateUtils";
 
 export default function SholatPage() {
   const [requestData, setRequestData] = useState(null);
@@ -12,7 +13,16 @@ export default function SholatPage() {
   const { settings } = useContext(appContext);
 
   function formatDateAPI(date) {
-    return date.toISOString().slice(0, 10);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
+
+  function changeDate(days) {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() + days);
+    setSelectedDate(newDate);
   }
 
   useEffect(() => {
@@ -55,13 +65,18 @@ export default function SholatPage() {
             </h2>
             <p className="text-gray-500">{requestData.data.daerah}</p>
             <p className="text-gray-800 mt-2">
-              {new Date().toLocaleDateString()}
+              {formatGregorianDate(selectedDate.toLocaleDateString())}
             </p>
-            {/* <p className="text-gray-800">Ahad, 10 Rajab 1445 H</p> */}
+            <p className="text-gray-800">
+              {getHijriDate(selectedDate.toLocaleDateString())}
+            </p>
           </div>
 
           <div className="mt-4 flex justify-between max-w-3/4 items-center mx-auto ">
-            <button className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors">
+            <button
+              onClick={() => changeDate(-1)}
+              className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
+            >
               &larr;
             </button>
             <DatePicker
@@ -71,7 +86,10 @@ export default function SholatPage() {
               className="max-w-40 rounded-md border-1 border-purple-300 p-2 text-center"
               calendarStartDay={1}
             />
-            <button className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors">
+            <button
+              onClick={() => changeDate(1)}
+              className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
+            >
               &rarr;
             </button>
           </div>
@@ -81,7 +99,10 @@ export default function SholatPage() {
           {Object.entries(requestData.data.jadwal).map(([key, value]) => {
             if (["tanggal", "date"].includes(key)) return;
             return (
-              <div className="flex justify-between p-2 backdrop-blur-xl bg-purple-50 rounded-xl">
+              <div
+                key={key}
+                className="flex justify-between p-2 backdrop-blur-xl bg-purple-50 rounded-xl"
+              >
                 <span className="text-stone-600">{key}</span>
                 <span className="text-purple-600 font-bold">{value}</span>
               </div>
