@@ -20,7 +20,7 @@ export default function AskUsername() {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
+            className="cursor-pointer px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
             onClick={() => {
               setUsername(usernameRef.current.value);
               closeModal();

@@ -28,7 +28,7 @@ export default function BookmarkCollection({ data }) {
         <div className="p-4 block relative">
           <button
             onClick={closeModal}
-            className="absolute top-0 right-0 p-1 bg-red-700 rounded"
+            className="cursor-pointer absolute top-0 right-0 p-1 bg-red-700 rounded"
           >
             <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
           </button>
@@ -47,7 +47,7 @@ export default function BookmarkCollection({ data }) {
             {data.collectionId !== "default" && (
               <button
                 type="submit"
-                className="px-4 font-bold py-2 bg-red-500 text-white rounded"
+                className="cursor-pointer px-4 font-bold py-2 bg-red-500 text-white rounded"
                 onClick={() => {
                   confirm("Yakin ingin hapus collection ini?") &&
                     deleteCollectionAndSyncBookmark(data.collectionId);
@@ -60,7 +60,7 @@ export default function BookmarkCollection({ data }) {
 
             <button
               type="submit"
-              className="px-4 font-bold py-2 bg-purple-500 text-white rounded"
+              className="cursor-pointer px-4 font-bold py-2 bg-purple-500 text-white rounded"
               onClick={() => {
                 renameCollectionAndSyncBookmark(
                   data.collectionId,
@@ -86,7 +86,7 @@ export default function BookmarkCollection({ data }) {
       <div className="bookmark-collection flex justify-between items-center p-2 pb-0 text-xs">
         <button
           onClick={handleOpenCollection}
-          className="bookmark-button-group flex justify-start items-center gap-2 w-9/10"
+          className="cursor-pointer bookmark-button-group flex justify-start items-center gap-2 w-9/10"
         >
           <img src={FolderIcon} alt="" />
           <div className="bookmark-detail flex flex-col text-stone-800 justify-start items-start">
@@ -96,7 +96,7 @@ export default function BookmarkCollection({ data }) {
         </button>
         <button
           onClick={handleCollectionOptions}
-          className="bookmark-action-button"
+          className="cursor-pointer bookmark-action-button"
         >
           <img src={DotThreeIcon} alt="" />
         </button>
@@ -124,7 +124,7 @@ export default function BookmarkCollection({ data }) {
                         deleteAndSyncBookmark(item.id, data.collectionId)
                       );
                     }}
-                    className="bg-red-500 text-xs text-white p-1 font-bold rounded-sm"
+                    className="cursor-pointer bg-red-500 text-xs text-white p-1 font-bold rounded-sm"
                   >
                     Delete
                   </button>

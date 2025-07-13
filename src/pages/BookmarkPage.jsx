@@ -22,7 +22,7 @@ export default function BookmarkPage() {
         <div className="p-4 block relative">
           <button
             onClick={closeModal}
-            className="absolute top-0 right-0 p-1 bg-red-700 rounded"
+            className="cursor-pointer absolute top-0 right-0 p-1 bg-red-700 rounded"
           >
             <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
           </button>
@@ -37,7 +37,7 @@ export default function BookmarkPage() {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
+              className="cursor-pointer px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
               onClick={() => {
                 closeModal(
                   addNewCollectionAndSyncBookmark(inputRef.current.value)
@@ -68,7 +68,7 @@ export default function BookmarkPage() {
             <div className="add-collection-container">
               <button
                 onClick={handleAddNewCollection}
-                className="flex justify-center gap-2 items-center"
+                className="cursor-pointer flex justify-center gap-2 items-center"
               >
                 <img src={FolderPlusIcon} alt="" />
                 <span className="text-purple-800">Add new collection</span>

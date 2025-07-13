@@ -67,7 +67,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
         <div className="p-4 block relative">
           <button
             onClick={closeModal}
-            className="absolute top-0 right-0 p-1 bg-red-700 rounded"
+            className="cursor-pointer absolute top-0 right-0 p-1 bg-red-700 rounded"
           >
             <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
           </button>
@@ -95,7 +95,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
+              className="cursor-pointer px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
               onClick={() => {
                 const { error, message } = saveAndSyncBookmark(
                   number,
@@ -140,7 +140,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
             {/* Last Read Button - Tooltip di atas dengan panah bawah */}
             <div className="relative">
               <img
-                className="scale-80 active"
+                className="cursor-pointer scale-80 active"
                 src={QuranMenuIcon}
                 alt=""
                 onClick={handleLastReadClick}
@@ -163,7 +163,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
 
             {/* Share Button - Tooltip di bawah dengan panah atas */}
             <div className="relative">
-              <img src={ShareIcon} alt="" />
+              <img src={ShareIcon} alt="" className="cursor-pointer " />
               {showTooltips && (
                 <div className="relative">
                   <div
@@ -183,7 +183,12 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
             {/* Play Button - Tooltip di atas dengan panah bawah */}
             {!playStatus && (
               <div className="relative">
-                <img onClick={handleClick} src={PlayAudioIcon} alt="" />
+                <img
+                  onClick={handleClick}
+                  src={PlayAudioIcon}
+                  alt=""
+                  className="cursor-pointer "
+                />
                 {showTooltips && (
                   <div
                     className="absolute -top-11 -left-6 bg-purple-600 text-white text-[10px] 
@@ -206,6 +211,7 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
                 src={BookmarkIconPurple}
                 alt=""
                 onClick={handleBookmarkClick}
+                className="cursor-pointer "
               />
               {showTooltips && (
                 <div

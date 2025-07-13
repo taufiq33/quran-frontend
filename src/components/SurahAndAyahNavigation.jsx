@@ -89,7 +89,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
         </div>
         <div className="flex gap-6 justify-around items-center">
           <button
-            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg "
+            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
             onClick={() => {
               if (prevSurah) window.location.href = `/surah/${prevSurah}`;
             }}
@@ -104,7 +104,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           </button>
 
           <button
-            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg "
+            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
             onClick={() => {
               if (nextSurah) window.location.href = `/surah/${nextSurah}`;
             }}

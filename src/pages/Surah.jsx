@@ -93,7 +93,7 @@ export default function Surah() {
                     </div>
                   )}
                   <audio
-                    className="w-full bg-purple-200/80 shadow-lg rounded-lg p-3 
+                    className="w-full bg-purple-300/80 shadow-lg rounded-lg p-3 
                       border-2 border-purple-400
 
                       [&::-webkit-media-controls-current-time-display]:text-purple-900
@@ -102,7 +102,7 @@ export default function Surah() {
                       [&::-webkit-media-controls-play-button]:text-white
                       [&::-webkit-media-controls-volume-slider]:accent-purple-200
                       [&::-webkit-media-controls-mute-button]:text-white
-                      hover:bg-purple-700 transition-colors duration-300"
+                      hover:bg-purple-400/80 transition-colors duration-300"
                     src={null}
                     ref={audioRef}
                     controls

@@ -73,7 +73,7 @@ export default function SholatPage() {
           <div className="mt-4 flex justify-between max-w-3/4 items-center mx-auto ">
             <button
               onClick={() => changeDate(-1)}
-              className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
+              className="cursor-pointer p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
             >
               &larr;
             </button>
@@ -86,7 +86,7 @@ export default function SholatPage() {
             />
             <button
               onClick={() => changeDate(1)}
-              className="p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
+              className="cursor-pointer p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
             >
               &rarr;
             </button>
