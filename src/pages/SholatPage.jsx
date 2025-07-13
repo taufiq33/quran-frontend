@@ -65,11 +65,9 @@ export default function SholatPage() {
             </h2>
             <p className="text-gray-500">{requestData.data.daerah}</p>
             <p className="text-gray-800 mt-2">
-              {formatGregorianDate(selectedDate.toLocaleDateString())}
+              {formatGregorianDate(selectedDate)}
             </p>
-            <p className="text-gray-800">
-              {getHijriDate(selectedDate.toLocaleDateString())}
-            </p>
+            <p className="text-gray-800">{getHijriDate(selectedDate)}</p>
           </div>
 
           <div className="mt-4 flex justify-between max-w-3/4 items-center mx-auto ">

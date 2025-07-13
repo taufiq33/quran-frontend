@@ -23,8 +23,7 @@ const hijriDays = [
   "Sabtu",
 ];
 
-export function formatGregorianDate(dateString) {
-  const date = new Date(dateString);
+export function formatGregorianDate(date) {
   return date.toLocaleDateString("id-ID", {
     weekday: "long",
     year: "numeric",
@@ -33,8 +32,9 @@ export function formatGregorianDate(dateString) {
   });
 }
 
-export function getHijriDate(dateString) {
-  const date = new Date(dateString);
+export function getHijriDate(date) {
+  // Pastikan date adalah Date object valid
+  if (!(date instanceof Date) || isNaN(date)) return "-";
 
   // Get Hijri date components
   const hijri = new Intl.DateTimeFormat("ar-SA-u-nu-latn", {
