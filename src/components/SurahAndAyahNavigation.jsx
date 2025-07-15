@@ -49,7 +49,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
 
   return (
     <>
-      <div className="header sticky top-0 z-10 bg-stone-100 shadow-xl flex flex-col justify-around items-center gap-2 mb-4 px-4 py-2 text-sm opcity-50">
+      <div className="header fixed w-full right-0 left-0 top-0 z-10 bg-stone-100 shadow-lg rounded-xl flex flex-col justify-around items-center gap-2 mb-4 px-4 py-2 text-sm opcity-50">
         <div className="flex gap-2 justify-around items-center">
           <select
             className="text-purple-900 border-1 border-stone-200 font-bold bg-white p-1 rounded-lg "

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { appContext } from "../context/app-context";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function BookmarkCollection({ data }) {
   const [collectionOpen, setCollectionOpen] = useState(false);
@@ -80,18 +81,20 @@ export default function BookmarkCollection({ data }) {
   return (
     <div
       className={`${
-        collectionOpen && "bg-purple-50"
-      } rounded border-1 my-2 flex flex-col items-cennter justify-center border-purple-200 p-1`}
+        collectionOpen && "border-l-purple-500 border-l-4"
+      } rounded border-1 my-2 flex flex-col justify-start border-purple-200 p-1 lg:p-3 hover:shadow-lg transition duration-300 ease-in-out`}
     >
-      <div className="bookmark-collection flex justify-between items-center p-2 pb-0 text-xs">
+      <div className="bookmark-collection flex justify-between items-center p-2 pb-0 text-xs md:text-base ">
         <button
           onClick={handleOpenCollection}
           className="cursor-pointer bookmark-button-group flex justify-start items-center gap-2 w-9/10"
         >
           <img src={FolderIcon} alt="" />
           <div className="bookmark-detail flex flex-col text-stone-800 justify-start items-start">
-            <span>{data.collectionName}</span>
-            <span>{data.lists.length} items</span>
+            <span className="font-bold text-purple-900">
+              {data.collectionName}
+            </span>
+            <span className="md:text-xs">{data.lists.length} items</span>
           </div>
         </button>
         <button
@@ -104,14 +107,17 @@ export default function BookmarkCollection({ data }) {
 
       {collectionOpen &&
         data.lists.map((item) => (
-          <div className="bookmark-collection-item p-4 text-xs" key={item.id}>
+          <div
+            className="bookmark-collection-item my-1 font-bold p-1 ml-6 bg-stone-50  text-xs md:text-sm hover:border-l-2 hover:border-purple-500 transition duration-300 ease-in-out"
+            key={item.id}
+          >
             <ul className="flex flex-col">
-              <li className="flex items-center justify-between">
+              <li className="flex items-center justify-between ">
                 <div className="flex justify-start items-center gap-2">
                   <img src={BookmarkIconPurple} alt="" />
                   <Link
                     to={`/surah/${item.surahNumber}/${item.ayah}`}
-                    className="border-b-1 border-purple-300 text-stone-500"
+                    className=" text-purple-600 hover:text-purple-800"
                   >
                     {item.surahName} - Ayat {item.ayah}
                   </Link>
@@ -124,9 +130,9 @@ export default function BookmarkCollection({ data }) {
                         deleteAndSyncBookmark(item.id, data.collectionId)
                       );
                     }}
-                    className="cursor-pointer bg-red-500 text-xs text-white p-1 font-bold rounded-sm"
+                    className="cursor-pointer broder-1 border-stone-400 hover:bg-red-500 text-xs text-red-400 hover:text-white p-1 font-bold rounded-sm md:scale-80"
                   >
-                    Delete
+                    <FontAwesomeIcon className="text-xs" icon={faTrash} />
                   </button>
                 </div>
               </li>

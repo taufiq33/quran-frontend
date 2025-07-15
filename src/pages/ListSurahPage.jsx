@@ -13,6 +13,7 @@ import BottomNavbar from "../components/BottomNavbar";
 import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
 import AskUsername from "../components/AskUsername";
+import Header from "../components/Header";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
@@ -75,20 +76,11 @@ export default function ListSurahPage() {
     return (
       <>
         <div className="poppins-regular">
-          <div className="header sticky top-0 z-100 bg-stone-50 shadow flex justify-between items-center gap-6 mb-4 px-4 py-2">
-            <div className="flex gap-6">
-              <img src={SideMenuIcon} alt="" className="" />
-              <h1 className="text-purple-500 grayscale-50 font-bold text-lg ">
-                Aplikasi Al Quran
-              </h1>
-            </div>
-            <img
-              src={SearchIcon}
-              onClick={handleSearchIconClick}
-              alt=""
-              className=""
-            />
-          </div>
+          <Header
+            title="Aplikasi Al Quran"
+            searchButton
+            searchFnCallback={handleSearchIconClick}
+          />
 
           {!keyword && (
             <>
@@ -127,7 +119,7 @@ export default function ListSurahPage() {
           <div className="container-list-of-surah p-4">
             <div className="search-box p-1 ">
               <input
-                className="shadow-lg border-1 w-full text-sm border-purple-900 rounded p-2"
+                className="shadow-lg border-1 w-full text-sm border-purple-600 rounded p-2 focus:border-purple-900"
                 type="search"
                 name=""
                 ref={searchBarRef}
@@ -141,9 +133,13 @@ export default function ListSurahPage() {
 
             <hr className="border border-stone-200 my-2" />
 
-            <div className="list-surah">
+            <div className="list-surah md:grid md:grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-7">
               {filteredSurah.map((item) => (
-                <Link to={`/surah/${item.nomor}`} key={item.nomor}>
+                <Link
+                  className="md:flex-1/3 lg:flex-1/4 flex-shrink-0"
+                  to={`/surah/${item.nomor}`}
+                  key={item.nomor}
+                >
                   <SurahItem surahData={item} />
                 </Link>
               ))}

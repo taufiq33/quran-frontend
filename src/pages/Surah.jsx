@@ -54,7 +54,7 @@ export default function Surah() {
 
             <>
               <div
-                className="surah-banner p-4 rounded-xl text-white flex flex-col gap-1 justify-center items-center m-6 shadow bg-cover bg-no-repeat"
+                className="surah-banner p-4 rounded-xl text-white flex flex-col gap-1 justify-center items-center m-6 shadow bg-cover bg-no-repeat mt-30"
                 style={{ backgroundImage: `url(${SurahBanner})` }}
               >
                 <h1 className="text-2xl my-2">{loadedSurahData.namaLatin}</h1>

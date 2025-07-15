@@ -2,7 +2,7 @@ import SurahMarker from "../assets/surah-marker.png";
 export default function SurahItem({ surahData }) {
   return (
     <>
-      <div className="surah-item p-1 flex justify-between items-center border-b-1 border-stone-200 hover:bg-purple-100 ">
+      <div className="surah-item md:rounded-lg md:border-1 md:border-purple-300 md:p-2 md:shadow-lg p-1 flex justify-between items-center border-b-1 border-stone-200 hover:bg-purple-100 ">
         <div className="surah-item-marker-title flex items-center gap-4 py-2 ">
           <div
             className={`bg-no-repeat h-[36px] w-[36px] bg-cover flex justify-center items-center`}

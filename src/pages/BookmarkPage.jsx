@@ -10,6 +10,7 @@ import BottomNavbar from "../components/BottomNavbar";
 import BookmarkCollection from "../components/BookmarkCollection";
 
 import { appContext } from "../context/app-context";
+import Header from "../components/Header";
 
 export default function BookmarkPage() {
   const { bookmark, showModal, closeModal, addNewCollectionAndSyncBookmark } =
@@ -54,21 +55,14 @@ export default function BookmarkPage() {
   return (
     <>
       <div className="poppins-regular">
-        <div className="header sticky top-0 z-100 bg-stone-50 shadow flex justify-between items-center gap-6 mb-4 px-4 py-2">
-          <div className="flex gap-6">
-            <img src={SideMenuIcon} alt="" className="" />
-            <h1 className="text-purple-500 grayscale-50 font-bold text-lg ">
-              Bookmarks
-            </h1>
-          </div>
-          <img src={SearchIcon} alt="" className="" />
-        </div>
-        <div className="bookmark-container p-2">
-          <div className="bookmark-button-group flex justify-between px-2 text-sm pb-4">
+        <Header title="Bookmark" />
+
+        <div className="bookmark-container p-2 md:p-4 lg:p-6">
+          <div className="bookmark-button-group flex justify-between px-2 md:text-base text-sm pb-4">
             <div className="add-collection-container">
               <button
                 onClick={handleAddNewCollection}
-                className="cursor-pointer flex justify-center gap-2 items-center"
+                className="cursor-pointer border-purple-300 border-1 rounded-md px-3 py-1 flex hover:shadow-xl justify-center gap-2 items-center transition duration-300 ease-in-out hover:bg-purple-100 hover:text-purple-800"
               >
                 <img src={FolderPlusIcon} alt="" />
                 <span className="text-purple-800">Add new collection</span>
@@ -78,7 +72,7 @@ export default function BookmarkPage() {
               <img src={SortIcon} alt="" />
             </button>
           </div>
-          <div className="bookmark-list">
+          <div className="bookmark-list grid grid-cols-1 lg:grid-cols-2 lg:gap-4 items-start">
             {bookmark.map((item) => (
               <BookmarkCollection data={item} key={item.collectionId} />
             ))}

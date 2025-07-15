@@ -77,7 +77,7 @@ function App() {
   }
 
   return (
-    <main className="mb-20">
+    <main className="mb-20 max-w-xl md:max-w-4xl mx-auto lg:max-w-6xl px-2 md:px-4 lg:px-6 poppins-regular">
       <AppContextProvider>
         <RouterProvider router={router} />
       </AppContextProvider>
