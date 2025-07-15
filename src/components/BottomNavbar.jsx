@@ -17,8 +17,8 @@ export default function BottomNavbar() {
       <div className="header fixed w-full bottom-0 z-100 bg-stone-50 shadow-[0_-1px_3px_0_rgba(0,0,0,0.1),0_-4px_12px_-4px_rgba(0,0,0,0.1)] flex justify-evenly items-center p-2 border-t-stone-100 border-t-1 right-0 left-0">
         <NavLink
           className={({ isActive }) =>
-            `${genericClass} grey-custom-filter md:pt-1 ${
-              isActive ? "active" : null
+            `${genericClass}  md:pt-1 ${
+              isActive ? "active" : "grey-custom-filter"
             }`
           }
           to={`/list-surah`}
