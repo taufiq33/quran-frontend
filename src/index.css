@@ -9,6 +9,7 @@
 .active {
   filter: brightness(0) saturate(100%) invert(26%) sepia(100%) saturate(3004%)
     hue-rotate(268deg) brightness(89%) contrast(89%);
+  font-weight: bold;
 }
 
 .modal {
@@ -19,9 +20,11 @@
   background-color: rgba(0, 0, 0, 0.55);
 }
 
-.grey-custom-filter {
-  filter: brightness(0) saturate(100%) invert(74%) sepia(5%) saturate(6%)
-    hue-rotate(352deg) brightness(93%) contrast(95%);
+@media (max-width: 767px) {
+  .grey-custom-filter {
+    filter: brightness(0) saturate(100%) invert(74%) sepia(5%) saturate(6%)
+      hue-rotate(352deg) brightness(93%) contrast(95%);
+  }
 }
 
 .poppins-thin {
