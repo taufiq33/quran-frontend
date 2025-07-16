@@ -47,7 +47,10 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
   }, [ayahData.nomorAyat]);
 
   function handleClick() {
-    onPlayAudio(ayahData.audio[settings.qori], ayahData.nomorAyat);
+    onPlayAudio(ayahData.audio[settings.qori], {
+      ayahNumber: ayahData.nomorAyat,
+      surahNumber: number,
+    });
   }
 
   function handleLastReadClick() {

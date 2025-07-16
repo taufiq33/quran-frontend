@@ -8,7 +8,7 @@ import { useCallback } from "react";
 export default function SurahAndAyahNavigation({ surahData }) {
   const [selectedSurah, setSelectedSurah] = useState(null);
   const [selectedAyah, setSelectedAyah] = useState(0);
-  const { listSurah } = useContext(appContext);
+  const { listSurah, activeAyah } = useContext(appContext);
   const { number, ayah } = useParams();
   const navigate = useNavigate();
 
@@ -36,6 +36,10 @@ export default function SurahAndAyahNavigation({ surahData }) {
       setSelectedAyah(0);
     }
   }, [number, ayah, handleSelectAyah]);
+
+  useEffect(() => {
+    activeAyah.ayahNumber !== null && handleSelectAyah(activeAyah.ayahNumber);
+  }, [activeAyah.ayahNumber, handleSelectAyah]);
 
   function handleSelectSurah(e) {
     setSelectedSurah(e.target.value);

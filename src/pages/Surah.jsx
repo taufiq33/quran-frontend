@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useEffect, useRef, Suspense, useContext } from "react";
 import { useLoaderData, useParams, Await } from "react-router-dom";
+import { appContext } from "../context/app-context";
 
 import SurahBanner from "../assets/surah-banner.png";
 
@@ -12,11 +13,17 @@ import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function Surah() {
   const { data: surahData } = useLoaderData();
-  const [activeAyahPlayed, setActiveAyahPlayed] = useState(null);
   const { number, ayah } = useParams();
   const audioRef = useRef();
 
+  const { handleActiveAyahChange, activeAyah, settings } =
+    useContext(appContext);
+
   if (number > 114) window.location.href = "/list-surah";
+
+  useEffect(() => {
+    handleActiveAyahChange(null, null);
+  }, [handleActiveAyahChange]);
 
   useEffect(() => {
     let timeout = null;
@@ -31,25 +38,53 @@ export default function Surah() {
 
     if (audioRef.current) {
       audioRef.current.src = "";
-      setActiveAyahPlayed(null);
     }
 
     return () => clearTimeout(timeout);
   }, [number, ayah]);
 
-  function ayahAudioPlayEvent(src, ayah) {
+  async function ayahAudioPlayEvent(
+    src,
+    ayahObj,
+    next = false,
+    nextAudio = false
+  ) {
     if (audioRef.current) {
-      setActiveAyahPlayed(ayah);
-      audioRef.current.src = src;
-      audioRef.current.play();
+      if (!next) {
+        handleActiveAyahChange(ayahObj.ayahNumber, ayahObj.surahNumber);
+        audioRef.current.src = src;
+        audioRef.current.play();
+      } else {
+        handleActiveAyahChange(null, null, true);
+        audioRef.current.src = nextAudio.audio[settings.qori];
+        audioRef.current.load();
+        audioRef.current.play();
+      }
     }
+  }
+
+  function handleAyahPlayedEnded(event, loadedSurahData) {
+    event.target.src = null;
+    if (activeAyah.ayahNumber + 1 > loadedSurahData.ayat.length) {
+      return handleActiveAyahChange(null, null);
+    }
+    const timeout = setTimeout(() => {
+      ayahAudioPlayEvent(
+        null,
+        null,
+        true,
+        loadedSurahData.ayat[activeAyah.ayahNumber],
+        loadedSurahData.ayat.length
+      );
+    }, 1000);
+    return () => clearTimeout(timeout);
   }
 
   return (
     <Suspense fallback={<LoadingIndicator />}>
       <Await resolve={surahData}>
         {(loadedSurahData) => (
-          <div className="poppins-regular mb-30">
+          <div className="poppins-regular mb-40">
             <SurahAndAyahNavigation surahData={loadedSurahData} />
 
             <>
@@ -77,19 +112,19 @@ export default function Surah() {
                     key={item.nomorAyat}
                     ayahData={item}
                     onPlayAudio={ayahAudioPlayEvent}
-                    playStatus={item.nomorAyat === activeAyahPlayed}
+                    playStatus={item.nomorAyat === activeAyah.ayahNumber}
                   />
                 ))}
               </div>
 
               <div className="fixed bottom-14 left-0 right-0 mx-auto w-full px-3">
                 <div className="max-w-xl mx-auto relative">
-                  {activeAyahPlayed && (
+                  {activeAyah.ayahNumber && (
                     <div
                       className="text-xs text-white bg-purple-600/80 
                         rounded-t-lg px-3 py-2 font-medium -mb-1 inline-block"
                     >
-                      {loadedSurahData.namaLatin} • Ayat {activeAyahPlayed}
+                      {loadedSurahData.namaLatin} • Ayat {activeAyah.ayahNumber}
                     </div>
                   )}
                   <audio
@@ -107,8 +142,7 @@ export default function Surah() {
                     ref={audioRef}
                     controls
                     onEnded={(event) => {
-                      event.target.src = null;
-                      setActiveAyahPlayed(null);
+                      handleAyahPlayedEnded(event, loadedSurahData);
                     }}
                   />
                 </div>

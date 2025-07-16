@@ -15,6 +15,12 @@ import ModalDialog from "../components/ModalDialog";
 
 export default function AppContextProvider({ children }) {
   const [listSurah, setListSurah] = useState([]);
+  const [activeAyah, setActiveAyah] = useState({
+    ayahNumber: null,
+    surahNumber: null,
+    surahName: null,
+    totalAyah: null,
+  });
   const [bookmark, setBookmark] = useState(
     JSON.parse(localStorage.getItem("bookmark"))
   );
@@ -39,6 +45,39 @@ export default function AppContextProvider({ children }) {
       setListSurah(localListSurah);
     }
   }, []);
+
+  const handleActiveAyahChange = useCallback(
+    (ayahNumber, surahNumber, next = false) => {
+      if (!next) {
+        const currentSurah = listSurah.find(
+          (item) => item.nomor === +surahNumber
+        );
+        const totalAyah = currentSurah?.jumlahAyat || null;
+
+        if (totalAyah !== null && ayahNumber > totalAyah) return;
+
+        setActiveAyah({
+          ayahNumber,
+          surahNumber: +surahNumber,
+          surahName:
+            listSurah.find((item) => item.nomor === +surahNumber)?.namaLatin ||
+            null,
+          totalAyah:
+            listSurah.find((item) => item.nomor === +surahNumber)?.jumlahAyat ||
+            null,
+        });
+      } else {
+        setActiveAyah((prev) => {
+          if (ayahNumber > prev.totalAyah) return prev;
+          return {
+            ...prev,
+            ayahNumber: prev.ayahNumber + 1,
+          };
+        });
+      }
+    },
+    [listSurah]
+  );
 
   function replaceModalContent(newContent, autoClose = false) {
     // Reset modal state
@@ -116,6 +155,8 @@ export default function AppContextProvider({ children }) {
   const contextValue = {
     listSurah,
     bookmark,
+    activeAyah,
+    handleActiveAyahChange,
     setListSurah,
     showModal,
     closeModal,
