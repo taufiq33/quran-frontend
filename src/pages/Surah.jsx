@@ -2,7 +2,7 @@ import { useEffect, useRef, Suspense, useContext } from "react";
 import { useLoaderData, useParams, Await } from "react-router-dom";
 import { appContext } from "../context/app-context";
 
-import SurahBanner from "../assets/surah-banner.png";
+import QuranAsset from "../assets/quran.png";
 
 import AyahItem from "../components/AyahItem";
 import BottomNavbar from "../components/BottomNavbar";
@@ -88,10 +88,7 @@ export default function Surah() {
             <SurahAndAyahNavigation surahData={loadedSurahData} />
 
             <>
-              <div
-                className="surah-banner p-4 rounded-xl text-white flex flex-col gap-1 justify-center items-center m-6 shadow bg-cover bg-no-repeat mt-30"
-                style={{ backgroundImage: `url(${SurahBanner})` }}
-              >
+              <div className="surah-banner relative p-4 rounded-xl text-white flex flex-col gap-1 justify-center items-center m-6 shadow bg-cover bg-no-repeat mt-30 md:w-[512px] md:mx-auto bg-gradient-to-br from-[#DF98FA]/80 to-[#9055FF]/80 overflow-hidden">
                 <h1 className="text-2xl my-2">{loadedSurahData.namaLatin}</h1>
                 <h2 className="text-sm">{loadedSurahData.arti}</h2>
                 <hr className="my-4 border-1 border-stone-50 w-1/2 opacity-50" />
@@ -104,6 +101,11 @@ export default function Surah() {
                     بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
                   </h1>
                 </div>
+                <img
+                  src={QuranAsset}
+                  alt=""
+                  className="-z-10 absolute right-0 bottom-0 w-3/5 min-[420px]:w-2/5 h-auto"
+                />
               </div>
 
               <div className="surah-ayah-container">
