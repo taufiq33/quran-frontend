@@ -83,37 +83,41 @@ export default function ListSurahPage() {
           />
 
           {!keyword && (
-            <>
-              <div className="welcome-banner flex flex-col mb-6 px-4 duration-300 ease-in">
+            <div className="flex flex-col md:flex-row md:justify-evenly justify-center p-4 md:p-1 items-start md:items-center">
+              <div className="welcome-banner flex flex-col mb-6 px-4 duration-300 ease-in sm:text-xl lg:text-2xl sm:text-center">
                 <h3 className="text-stone-500 mb-1">Assalamualaikum</h3>
                 <h2 className="text-stone-700 font-bold tracking-widest text-lg">
                   {getUsername() || ""}
                 </h2>
               </div>
 
-              {lastRead && (
-                <div
-                  className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in`}
-                  style={{ backgroundImage: `url(${LastReadBanner})` }}
-                  onClick={() =>
-                    (window.location.href = `/surah/${lastRead.surahNumber}/${lastRead.ayah}`)
-                  }
-                >
-                  <div className="last-read flex gap-2 mb-4">
-                    <img src={QuranSmall} alt="" />
-                    <span className="text-sm">Terakhir dibaca</span>
-                  </div>
-                  <div className="last-surah-ayah">
-                    <h4 className="font-bold text-lg">
-                      {listSurah[lastRead.surahNumber - 1].namaLatin}
-                    </h4>
-                    <p className="text-xs opacity-80">
-                      Ayat No: {lastRead.ayah}
-                    </p>
-                  </div>
+              <div
+                className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 md:mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in w-full min-[480px]:max-w-[350px] cursor-pointer`}
+                style={{ backgroundImage: `url(${LastReadBanner})` }}
+                onClick={() =>
+                  (window.location.href = lastRead
+                    ? `/surah/${lastRead.surahNumber}/${lastRead.ayah}`
+                    : "/surah/1/1")
+                }
+              >
+                <div className="last-read flex gap-2 mb-4">
+                  <img src={QuranSmall} alt="" />
+                  <span className="text-sm">
+                    {lastRead ? "Terakhir dibaca" : "Mulai baca Al Quran"}
+                  </span>
                 </div>
-              )}
-            </>
+                <div className="last-surah-ayah">
+                  <h4 className="font-bold text-lg">
+                    {lastRead
+                      ? listSurah[lastRead.surahNumber - 1].namaLatin
+                      : "Al-Fatihah"}
+                  </h4>
+                  <p className="text-xs opacity-80">
+                    Ayat No: {lastRead ? lastRead.ayah : "1"}
+                  </p>
+                </div>
+              </div>
+            </div>
           )}
 
           <div className="container-list-of-surah p-4">
