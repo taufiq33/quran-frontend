@@ -1,7 +1,5 @@
 import { useContext, useRef } from "react";
 import FolderPlusIcon from "../assets/folder-plus.svg";
-import SideMenuIcon from "../assets/side-menu-icon.svg";
-import SearchIcon from "../assets/search-line.svg";
 import SortIcon from "../assets/sort-icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +8,6 @@ import BottomNavbar from "../components/BottomNavbar";
 import BookmarkCollection from "../components/BookmarkCollection";
 
 import { appContext } from "../context/app-context";
-import Header from "../components/Header";
 
 export default function BookmarkPage() {
   const { bookmark, showModal, closeModal, addNewCollectionAndSyncBookmark } =
@@ -55,8 +52,6 @@ export default function BookmarkPage() {
   return (
     <>
       <div className="poppins-regular">
-        <Header title="Bookmark" />
-
         <div className="bookmark-container p-2 md:p-4 lg:p-6">
           <div className="bookmark-button-group flex justify-between px-2 md:text-base text-sm pb-4">
             <div className="add-collection-container">
@@ -79,7 +74,7 @@ export default function BookmarkPage() {
           </div>
         </div>
       </div>
-      <BottomNavbar />
+
     </>
   );
 }

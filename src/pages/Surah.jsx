@@ -150,7 +150,6 @@ export default function Surah() {
                   />
                 </div>
               </div>
-              <BottomNavbar />
             </>
           </div>
         )}

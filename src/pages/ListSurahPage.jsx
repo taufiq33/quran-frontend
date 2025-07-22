@@ -150,8 +150,6 @@ export default function ListSurahPage() {
               ))}
             </div>
           </div>
-
-          <BottomNavbar />
         </div>
       </>
     );

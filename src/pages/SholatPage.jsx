@@ -6,7 +6,6 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatGregorianDate, getHijriDate } from "../utils/dateUtils";
-import Header from "../components/Header";
 
 export default function SholatPage() {
   const [requestData, setRequestData] = useState(null);
@@ -51,7 +50,6 @@ export default function SholatPage() {
   return (
     <>
       <div className="poppins-regular bg-stone-50">
-        <Header title={"Jadwal Sholat"} />
         <div className="p-2">
           <div className=" flex flex-col items-center">
             <h2 className="text-xl font-bold text-gray-700">
@@ -101,8 +99,6 @@ export default function SholatPage() {
             );
           })}
         </div>
-
-        <BottomNavbar />
       </div>
     </>
   );
