@@ -14,6 +14,7 @@ import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
 import AskUsername from "../components/AskUsername";
 import Header from "../components/Header";
+import { scrollToTop } from "../utils/scrollUtils";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
@@ -30,7 +31,7 @@ export default function ListSurahPage() {
   }, [showModal]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    scrollToTop("instant");
     let timeout = setTimeout(() => {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;

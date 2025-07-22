@@ -4,6 +4,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { appContext } from "../context/app-context";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { scrollToElement } from "../utils/scrollUtils";
 
 export default function SurahAndAyahNavigation({ surahData }) {
   const [selectedSurah, setSelectedSurah] = useState(null);
@@ -15,13 +16,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
   const handleSelectAyah = useCallback(
     (ayahNumber) => {
       if (ayahNumber <= surahData.jumlahAyat) {
-        const selectedAyahElement = document.getElementById(ayahNumber);
-        const elementTop =
-          selectedAyahElement.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-          top: elementTop - 100,
-          behavior: "smooth",
-        });
+        scrollToElement(ayahNumber);
         setSelectedAyah(ayahNumber);
       }
     },

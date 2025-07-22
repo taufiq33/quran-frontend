@@ -10,6 +10,7 @@ import SurahAndAyahNavigation from "../components/SurahAndAyahNavigation";
 
 import { fetchSurah } from "../helper/data-fetcher-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
+import { scrollToTop } from "../utils/scrollUtils";
 
 export default function Surah() {
   const { data: surahData } = useLoaderData();
@@ -29,7 +30,7 @@ export default function Surah() {
     let timeout = null;
 
     if (!ayah || ayah < 2) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollToTop();
       timeout = setTimeout(() => {
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
