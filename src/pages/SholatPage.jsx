@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { appContext } from "../context/app-context";
-import SideMenuIcon from "../assets/side-menu-icon.svg";
-import BottomNavbar from "../components/BottomNavbar";
+
 import LoadingIndicator from "../components/LoadingIndicator";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatGregorianDate, getHijriDate } from "../utils/dateUtils";
+import { scrollToTop } from "../utils/scrollUtils";
 
 export default function SholatPage() {
   const [requestData, setRequestData] = useState(null);
@@ -44,13 +44,14 @@ export default function SholatPage() {
     };
 
     fetchData();
+    scrollToTop();
   }, [settings.lokasi, selectedDate]);
 
   if (!requestData) return <LoadingIndicator />;
   return (
     <>
-      <div className="poppins-regular bg-stone-50">
-        <div className="p-2">
+      <div className="poppins-regular sm:border-1 sm:border-purple-400/20 rounded-xl sm:shadow-xl sm:p-4 sm:gap-10 sm:mx-4 sm:mt-40 sm:flex sm:justify-center sm:items-center p-1">
+        <div className="p-2 sm:w-3/4">
           <div className=" flex flex-col items-center">
             <h2 className="text-xl font-bold text-gray-700">
               {requestData.data.lokasi}
@@ -62,7 +63,7 @@ export default function SholatPage() {
             <p className="text-gray-800">{getHijriDate(selectedDate)}</p>
           </div>
 
-          <div className="mt-4 flex justify-between max-w-3/4 items-center mx-auto ">
+          <div className="mt-4 gap-1 flex justify-evenly sm:justify-center sm:w-full items-center mx-auto sm:gap-2 sm:p-3">
             <button
               onClick={() => changeDate(-1)}
               className="cursor-pointer p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"
@@ -85,7 +86,7 @@ export default function SholatPage() {
           </div>
         </div>
 
-        <div className="p-4 mt-2 border-stone-50 border-1 bg-white rounded-xl shadow-md w-9/10 mx-auto flex flex-col gap-2">
+        <div className="p-4 mt-2 border-stone-50 border-1 bg-white rounded-xl shadow-md w-8/10 mx-auto flex flex-col gap-2 sm:w-full sm:p-1 sm:mt-0">
           {Object.entries(requestData.data.jadwal).map(([key, value]) => {
             if (["tanggal", "date"].includes(key)) return;
             return (
@@ -93,7 +94,7 @@ export default function SholatPage() {
                 key={key}
                 className="flex justify-between p-2 backdrop-blur-xl bg-purple-50 rounded-xl"
               >
-                <span className="text-stone-600">{key}</span>
+                <span className="text-stone-900">{key}</span>
                 <span className="text-purple-600 font-bold">{value}</span>
               </div>
             );

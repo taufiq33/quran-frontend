@@ -8,7 +8,6 @@ import QuranSmall from "../assets/quran-small.svg";
 
 import { appContext } from "../context/app-context";
 import SurahItem from "../components/SurahItem";
-import BottomNavbar from "../components/BottomNavbar";
 
 import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";

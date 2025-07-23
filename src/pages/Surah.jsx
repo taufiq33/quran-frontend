@@ -5,7 +5,7 @@ import { appContext } from "../context/app-context";
 import QuranAsset from "../assets/quran.png";
 
 import AyahItem from "../components/AyahItem";
-import BottomNavbar from "../components/BottomNavbar";
+
 import SurahAndAyahNavigation from "../components/SurahAndAyahNavigation";
 
 import { fetchSurah } from "../helper/data-fetcher-helper";

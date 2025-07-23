@@ -4,7 +4,6 @@ import SortIcon from "../assets/sort-icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
-import BottomNavbar from "../components/BottomNavbar";
 import BookmarkCollection from "../components/BookmarkCollection";
 
 import { appContext } from "../context/app-context";
@@ -74,7 +73,6 @@ export default function BookmarkPage() {
           </div>
         </div>
       </div>
-
     </>
   );
 }
