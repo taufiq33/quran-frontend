@@ -120,7 +120,7 @@ export default function Surah() {
                 ))}
               </div>
 
-              <div className="fixed bottom-14 left-0 right-0 mx-auto w-full px-3">
+              <div className="fixed bottom-14 md:bottom-22 lg:bottom-14 left-0 right-0 mx-auto w-full px-3">
                 <div className="max-w-xl mx-auto relative">
                   {activeAyah.ayahNumber && (
                     <div
