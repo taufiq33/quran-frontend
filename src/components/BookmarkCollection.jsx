@@ -1,19 +1,19 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext } from "react";
 import FolderIcon from "../assets/folder.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
 import DotThreeIcon from "../assets/dot-three.svg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { appContext } from "../context/app-context";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Form from "./Modal/Form";
+import Confirmation from "./Modal/Confirmation";
 
 export default function BookmarkCollection({ data }) {
   const [collectionOpen, setCollectionOpen] = useState(false);
-  const newCollectionNameRef = useRef();
   const {
     showModal,
-    closeModal,
+    replaceModalContent,
     deleteAndSyncBookmark,
     renameCollectionAndSyncBookmark,
     deleteCollectionAndSyncBookmark,
@@ -23,58 +23,59 @@ export default function BookmarkCollection({ data }) {
     setCollectionOpen((prev) => !prev);
   }
 
-  function handleCollectionOptions() {
+  function handleDeleteBookmark(bookmarkId, collectionId) {
     showModal(
-      <>
-        <div className="p-4 block relative">
-          <button
-            onClick={closeModal}
-            className="cursor-pointer absolute top-0 right-0 p-1 bg-red-700 rounded"
-          >
-            <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
-          </button>
-          <h2 className="text-lg mb-2 font-bold">{data.collectionName}</h2>
-          <p className="mb-2">
-            Collection ini punya {data.lists.length} bookmark
-          </p>
+      <Confirmation
+        heading="Hapus bookmark"
+        confirmationObject={{
+          element: <p>Yakin ingin hapus bookmark ini?</p>,
+          confirmText: "Hapus",
+          cancelText: "Batal",
+        }}
+        onConfirm={() => deleteAndSyncBookmark(bookmarkId, collectionId)}
+      />
+    );
+  }
 
-          <input
-            type="text"
-            defaultValue={data.collectionName}
-            ref={newCollectionNameRef}
-            className="w-full p-1 border rounded mb-4"
-          />
-          <div className="flex gap-2">
-            {data.collectionId !== "default" && (
-              <button
-                type="submit"
-                className="cursor-pointer px-4 font-bold py-2 bg-red-500 text-white rounded"
-                onClick={() => {
-                  confirm("Yakin ingin hapus collection ini?") &&
-                    deleteCollectionAndSyncBookmark(data.collectionId);
-                  closeModal();
-                }}
-              >
-                Hapus Collection
-              </button>
-            )}
-
-            <button
-              type="submit"
-              className="cursor-pointer px-4 font-bold py-2 bg-purple-500 text-white rounded"
-              onClick={() => {
-                renameCollectionAndSyncBookmark(
-                  data.collectionId,
-                  newCollectionNameRef.current.value
-                );
-                closeModal();
+  function handleCollectionOptions() {
+    const additionalButton = [
+      {
+        label: "Hapus Collection",
+        className: "bg-red-500 text-white",
+        onClick: () => {
+          replaceModalContent(
+            <Confirmation
+              heading="Hapus collection"
+              confirmationObject={{
+                element: (
+                  <p>
+                    Yakin ingin hapus collection{" "}
+                    <strong>"{data.collectionName}"</strong> ini?
+                  </p>
+                ),
+                confirmText: "Hapus",
+                cancelText: "Batal",
               }}
-            >
-              Ubah nama
-            </button>
-          </div>
-        </div>
-      </>
+              onConfirm={() =>
+                deleteCollectionAndSyncBookmark(data.collectionId)
+              }
+            />
+          );
+        },
+      },
+    ];
+    showModal(
+      <Form
+        heading={data.collectionName}
+        preText={`Collection ini punya ${data.lists.length} bookmark`}
+        inputObject={{
+          placeholder: "Rubah nama",
+          onSubmit: (newName) =>
+            renameCollectionAndSyncBookmark(data.collectionId, newName),
+          defaultValue: data.collectionName,
+        }}
+        additionalButton={additionalButton}
+      />
     );
   }
 
@@ -124,12 +125,9 @@ export default function BookmarkCollection({ data }) {
                 </div>
                 <div>
                   <button
-                    onClick={() => {
-                      return (
-                        confirm("Yakin ingin hapus?") &&
-                        deleteAndSyncBookmark(item.id, data.collectionId)
-                      );
-                    }}
+                    onClick={() =>
+                      handleDeleteBookmark(item.id, data.collectionId)
+                    }
                     className="cursor-pointer broder-1 border-stone-400 hover:bg-red-500 text-xs text-red-400 hover:text-white p-1 font-bold rounded-sm md:scale-80"
                   >
                     <FontAwesomeIcon className="text-xs" icon={faTrash} />

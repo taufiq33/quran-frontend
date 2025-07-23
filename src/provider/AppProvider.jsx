@@ -11,7 +11,7 @@ import {
   saveSettings,
 } from "../helper/local-storage-helper";
 import { appContext } from "../context/app-context";
-import ModalDialog from "../components/ModalDialog";
+import ModalDialog from "../components/Modal/ModalDialog";
 
 export default function AppContextProvider({ children }) {
   const [listSurah, setListSurah] = useState([]);

@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -10,7 +8,9 @@ import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
 import { saveLastReadSurah } from "../helper/local-storage-helper";
 import { useContext, useRef } from "react";
 import { appContext } from "../context/app-context";
-import Notification from "./Notification";
+import Notification from "./Modal/Notification";
+import Confirmation from "./Modal/Confirmation";
+
 import Ayah from "./Ayah";
 
 export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
@@ -66,63 +66,56 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
 
   function handleBookmarkClick() {
     showModal(
-      <>
-        <div className="p-4 block relative">
-          <button
-            onClick={closeModal}
-            className="cursor-pointer absolute top-0 right-0 p-1 bg-red-700 rounded"
-          >
-            <FontAwesomeIcon className="text-lg text-white" icon={faClose} />
-          </button>
-          <h2 className="text-lg mb-2 font-bold">Simpan bookmark</h2>
-          <p className="mb-2">
-            {surahName} ayat {ayahData.nomorAyat} <br /> Silahkan pilih
+      <Confirmation
+        heading={"Simpan bookmark"}
+        preText={
+          <span>
+            {surahName} ayat {ayahData.nomorAyat}. <br /> Silahkan pilih
             collection..
-          </p>
-
-          <select
-            name=""
-            id=""
-            ref={seletedCollectionIdRef}
-            className="border-1 border-stone-500 font-bold bg-white rounded-lg my-4"
-          >
-            {bookmark.map((collection) => (
-              <option
-                key={collection.collectionId}
-                value={collection.collectionId}
+          </span>
+        }
+        confirmationObject={{
+          element: (
+            <>
+              <select
+                name=""
+                id=""
+                ref={seletedCollectionIdRef}
+                className="border-1 border-stone-500 font-bold bg-white rounded-lg my-4"
               >
-                {collection.collectionName}
-              </option>
-            ))}
-          </select>
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              className="cursor-pointer px-4 w-full font-bold py-2 bg-purple-500 text-white rounded"
-              onClick={() => {
-                const { error, message } = saveAndSyncBookmark(
-                  number,
-                  surahName,
-                  ayahData.nomorAyat,
-                  seletedCollectionIdRef.current.value
-                );
-                console.log(error, message);
-                closeModal(() => {
-                  replaceModalContent(
-                    <Notification
-                      title={error ? "Gagal" : "Berhasil"}
-                      message={message}
-                    />,
-                    true
-                  );
-                });
-              }}
-            >
-              Simpan
-            </button>
-          </div>
-        </div>
-      </>
+                {bookmark.map((collection) => (
+                  <option
+                    key={collection.collectionId}
+                    value={collection.collectionId}
+                  >
+                    {collection.collectionName}
+                  </option>
+                ))}
+              </select>
+            </>
+          ),
+          confirmText: "Simpan",
+          cancelText: "Batal",
+        }}
+        onConfirm={() => {
+          const { error, message } = saveAndSyncBookmark(
+            number,
+            surahName,
+            ayahData.nomorAyat,
+            seletedCollectionIdRef.current.value
+          );
+
+          closeModal(() => {
+            replaceModalContent(
+              <Notification
+                title={error ? "Gagal" : "Berhasil"}
+                message={message}
+              />,
+              true
+            );
+          });
+        }}
+      />
     );
   }
 

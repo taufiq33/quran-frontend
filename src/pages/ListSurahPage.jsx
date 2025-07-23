@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import SideMenuIcon from "../assets/side-menu-icon.svg";
-import SearchIcon from "../assets/search-line.svg";
 import LastReadBanner from "../assets/last-read-banner.png";
 import QuranSmall from "../assets/quran-small.svg";
 
@@ -11,8 +9,9 @@ import SurahItem from "../components/SurahItem";
 
 import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
-import AskUsername from "../components/AskUsername";
+import { setUsername } from "../helper/local-storage-helper";
 import Header from "../components/Header";
+import Form from "../components/Modal/Form";
 import { scrollToTop } from "../utils/scrollUtils";
 
 export default function ListSurahPage() {
@@ -25,7 +24,18 @@ export default function ListSurahPage() {
 
   useEffect(() => {
     if (!getUsername()) {
-      showModal(<AskUsername />);
+      showModal(
+        <Form
+          heading="Assalamualaikum"
+          preText="Tolong masukkan nama panggilan kamu ya.."
+          inputObject={{
+            placeholder: "nama panggilan kamu..",
+            onSubmit: (name) => {
+              setUsername(name);
+            },
+          }}
+        />
+      );
     }
   }, [showModal]);
 

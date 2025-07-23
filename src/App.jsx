@@ -4,7 +4,6 @@ import ListSurahPage from "./pages/ListSurahPage";
 import Surah from "./pages/Surah";
 import BookmarkPage from "./pages/BookmarkPage";
 import SettingPage from "./pages/SettingPage";
-import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
 import AppContextProvider from "./provider/AppProvider";
 
@@ -46,11 +45,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  // {
-  //   path: "*",
-  //   element: <NotFoundPage />,
-  // },
 ]);
 
 function App() {
@@ -76,7 +70,7 @@ function App() {
       "settings",
       JSON.stringify({
         interfaceSetting: {
-          arabicFontSize: "normal",
+          arabicFontSize: "kecil",
           showTranslation: true,
           showTransliteration: true,
         },
