@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import HomepageImage from "../assets/homepage.svg";
 
 export default function Homepage() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <>
       <div className="poppins-regular">
@@ -15,10 +18,28 @@ export default function Homepage() {
         </div>
 
         <div className="flex flex-col px-8 justify-center items-center">
+          {!imageLoaded && (
+            <div className="w-[314px] h-[450px] bg-purple-100 rounded-lg animate-pulse flex items-center justify-center">
+              <div className="text-purple-300">
+                <svg
+                  className="w-16 h-16"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          )}
           <img
             src={HomepageImage}
             className="grayscale-25"
             alt="homepage banner"
+            onLoad={() => setImageLoaded(true)}
           />
           <Link
             to="/list-surah"
