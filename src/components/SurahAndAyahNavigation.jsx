@@ -7,7 +7,7 @@ import { useCallback } from "react";
 import { scrollToElement } from "../utils/scrollUtils";
 
 export default function SurahAndAyahNavigation({ surahData }) {
-  const [selectedSurah, setSelectedSurah] = useState(null);
+  const [selectedSurah, setSelectedSurah] = useState("");
   const [selectedAyah, setSelectedAyah] = useState(0);
   const { listSurah, activeAyah } = useContext(appContext);
   const { number, ayah } = useParams();
