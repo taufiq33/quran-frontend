@@ -22,7 +22,7 @@ export function checkExistingSurahData(surahNumber) {
   const existingSurahData = JSON.parse(localStorage.getItem("surahData"));
 
   return (
-    existingSurahData.filter((item) => item.nomor === parseInt(surahNumber))
+    existingSurahData?.filter((item) => item.nomor === parseInt(surahNumber))
       .length > 0 || false
   );
 }
