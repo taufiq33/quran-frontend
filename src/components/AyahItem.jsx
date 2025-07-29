@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 
 import ShareIcon from "../assets/share-icon.svg";
 import PlayAudioIcon from "../assets/play-audio-icon.svg";
 import QuranMenuIcon from "../assets/quran-menu-icon.svg";
 import BookmarkIconPurple from "../assets/bookmark-icon-purple.svg";
 import { saveLastReadSurah } from "../helper/local-storage-helper";
-import { useContext, useRef } from "react";
 import { appContext } from "../context/app-context";
 import Notification from "./Modal/Notification";
 import Confirmation from "./Modal/Confirmation";
+import ShareAyah from "./ShareAyah";
 
 import Ayah from "./Ayah";
 
@@ -119,6 +119,16 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
     );
   }
 
+  function handleShareClick() {
+    const ayahObject = {
+      ...ayahData,
+      namaSurat: surahName,
+      nomorSurah: number,
+    };
+
+    showModal(<ShareAyah ayahObject={ayahObject} />);
+  }
+
   return (
     <>
       <div
@@ -159,7 +169,12 @@ export default function AyahItem({ ayahData, onPlayAudio, playStatus }) {
 
             {/* Share Button - Tooltip di bawah dengan panah atas */}
             <div className="relative">
-              <img src={ShareIcon} alt="" className="cursor-pointer " />
+              <img
+                src={ShareIcon}
+                alt=""
+                className="cursor-pointer "
+                onClick={handleShareClick}
+              />
               {showTooltips && (
                 <div className="relative">
                   <div
