@@ -3,10 +3,13 @@ import BottomNavbar from "../components/BottomNavbar";
 import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation, faBan } from "@fortawesome/free-solid-svg-icons";
+import useTitle from "../hooks/useTitle";
 
 export default function ErrorPage() {
   const errorObject = useRouteError();
   const isNotFound = errorObject.status === 404;
+
+  useTitle(isNotFound ? "Halaman tidak ditemukan" : "Error!");
 
   return (
     <>

@@ -4,9 +4,11 @@ import SettingQori from "../components/SettingQori";
 import SettingLokasi from "../components/SettingLokasi";
 import { scrollToTop } from "../utils/scrollUtils";
 import { useEffect } from "react";
+import useTitle from "../hooks/useTitle";
 
 export default function SettingPage() {
   useEffect(() => scrollToTop(), []);
+  useTitle("Pengaturan");
   return (
     <>
       <div className="poppins-regular">

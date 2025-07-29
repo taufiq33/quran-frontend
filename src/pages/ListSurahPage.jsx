@@ -13,12 +13,15 @@ import { setUsername } from "../helper/local-storage-helper";
 import Header from "../components/Header";
 import Form from "../components/Modal/Form";
 import { scrollToTop } from "../utils/scrollUtils";
+import useTitle from "../hooks/useTitle";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
   const { listSurah, showModal } = useContext(appContext);
+
+  useTitle('Daftar Surat');
 
   const lastRead = getLastReadSurah();
 

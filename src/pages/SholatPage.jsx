@@ -6,11 +6,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatGregorianDate, getHijriDate } from "../utils/dateUtils";
 import { scrollToTop } from "../utils/scrollUtils";
+import useTitle from "../hooks/useTitle";
 
 export default function SholatPage() {
   const [requestData, setRequestData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { settings } = useContext(appContext);
+
+  useTitle("Jadwal Sholat");
 
   function formatDateAPI(date) {
     const day = String(date.getDate()).padStart(2, "0");

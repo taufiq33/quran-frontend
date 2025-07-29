@@ -5,10 +5,13 @@ import SortIcon from "../assets/sort-icon.svg";
 import BookmarkCollection from "../components/BookmarkCollection";
 import Form from "../components/Modal/Form";
 import { appContext } from "../context/app-context";
+import useTitle from "../hooks/useTitle";
 
 export default function BookmarkPage() {
   const { bookmark, showModal, addNewCollectionAndSyncBookmark } =
     useContext(appContext);
+
+  useTitle("Bookmark");
 
   function handleAddNewCollection() {
     showModal(
