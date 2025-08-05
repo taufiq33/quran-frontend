@@ -9,7 +9,6 @@ import SurahItem from "../components/SurahItem";
 
 import { getLastReadSurah, getUsername } from "../helper/local-storage-helper";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { setUsername } from "../helper/local-storage-helper";
 import Header from "../components/Header";
 import Form from "../components/Modal/Form";
 import { scrollToTop } from "../utils/scrollUtils";
@@ -19,7 +18,8 @@ export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
-  const { listSurah, showModal } = useContext(appContext);
+  const { listSurah, showModal, userNameApp, saveUsername } =
+    useContext(appContext);
   const navigate = useNavigate();
 
   useTitle("Daftar Surat");
@@ -27,7 +27,7 @@ export default function ListSurahPage() {
   const lastRead = getLastReadSurah();
 
   useEffect(() => {
-    if (!getUsername()) {
+    if (!userNameApp) {
       showModal(
         <Form
           heading="Assalamualaikum"
@@ -35,7 +35,7 @@ export default function ListSurahPage() {
           inputObject={{
             placeholder: "nama panggilan kamu..",
             onSubmit: (name) => {
-              setUsername(name);
+              saveUsername(name);
             },
           }}
         />

@@ -18,4 +18,6 @@ export const appContext = createContext({
   deleteCollectionAndSyncBookmark: () => {},
   settings: {},
   handleSaveSettings: () => {},
+  saveUsername: () => {},
+  userNameApp: "",
 });

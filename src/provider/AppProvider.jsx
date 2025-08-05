@@ -9,12 +9,15 @@ import {
   renameCollection,
   deleteCollection,
   saveSettings,
+  setUsername,
+  getUsername,
 } from "../helper/local-storage-helper";
 import { appContext } from "../context/app-context";
 import ModalDialog from "../components/Modal/ModalDialog";
 
 export default function AppContextProvider({ children }) {
   const [listSurah, setListSurah] = useState([]);
+  const [userNameApp, setUserNameApp] = useState(getUsername() || "");
   const [activeAyah, setActiveAyah] = useState({
     ayahNumber: null,
     surahNumber: null,
@@ -152,6 +155,11 @@ export default function AppContextProvider({ children }) {
     saveSettings(newSettings);
   }
 
+  function saveUsername(username) {
+    setUserNameApp(username);
+    setUsername(username);
+  }
+
   const contextValue = {
     listSurah,
     bookmark,
@@ -170,6 +178,8 @@ export default function AppContextProvider({ children }) {
     deleteCollectionAndSyncBookmark,
     settings,
     handleSaveSettings,
+    saveUsername,
+    userNameApp,
   };
 
   return (

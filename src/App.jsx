@@ -76,6 +76,7 @@ function App() {
         },
         qori: "05",
         lokasi: "1425",
+        autoLastReadOnVisitedSurah: false,
       })
     );
   }
