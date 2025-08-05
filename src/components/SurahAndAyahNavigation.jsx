@@ -38,7 +38,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
 
   function handleSelectSurah(e) {
     setSelectedSurah(e.target.value);
-    window.location.href = `/surah/${e.target.value}`;
+    navigate(`/surah/${e.target.value}`);
   }
 
   const prevSurah = number > 1 ? parseInt(number) - 1 : null;
@@ -90,7 +90,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           <button
             className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
             onClick={() => {
-              if (prevSurah) window.location.href = `/surah/${prevSurah}`;
+              if (prevSurah) navigate(`/surah/${prevSurah}`);
             }}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
@@ -105,7 +105,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           <button
             className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
             onClick={() => {
-              if (nextSurah) window.location.href = `/surah/${nextSurah}`;
+              if (nextSurah) navigate(`/surah/${nextSurah}`);
             }}
           >
             {!nextSurah && <span>---</span>}

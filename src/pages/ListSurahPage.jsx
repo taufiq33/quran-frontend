@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import LastReadBanner from "../assets/last-read-banner.png";
 import QuranSmall from "../assets/quran-small.svg";
@@ -20,8 +20,9 @@ export default function ListSurahPage() {
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
   const { listSurah, showModal } = useContext(appContext);
+  const navigate = useNavigate();
 
-  useTitle('Daftar Surat');
+  useTitle("Daftar Surat");
 
   const lastRead = getLastReadSurah();
 
@@ -108,9 +109,11 @@ export default function ListSurahPage() {
                 className={`card-last-read saturate-75 rounded-xl h-[131px] bg-no-repeat py-4 px-6 md:mx-4  bg-cover text-white mb-2 shadow-xl  duration-300 ease-in w-full min-[480px]:max-w-[350px] cursor-pointer`}
                 style={{ backgroundImage: `url(${LastReadBanner})` }}
                 onClick={() =>
-                  (window.location.href = lastRead
-                    ? `/surah/${lastRead.surahNumber}/${lastRead.ayah}`
-                    : "/surah/1/1")
+                  navigate(
+                    lastRead
+                      ? `/surah/${lastRead.surahNumber}/${lastRead.ayah}`
+                      : "/surah/1/1"
+                  )
                 }
               >
                 <div className="last-read flex gap-2 mb-4">
