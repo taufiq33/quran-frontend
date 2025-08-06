@@ -50,7 +50,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
     <>
       <div className="header fixed w-full right-0 left-0 top-0 z-10 bg-stone-100 shadow-xl rounded-xl grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4  mb-4 px-4 py-2 text-sm">
         <button
-          className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer order-3 md:order-1 justify-self-end md:justify-self-end max-w-[180px]"
+          className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer order-3 md:order-1 justify-self-end md:justify-self-end max-w-[180px] hover:shadow-lg hover:bg-purple-300/40"
           onClick={() => {
             if (prevSurah) navigate(`/surah/${prevSurah}`);
           }}
@@ -65,7 +65,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
         </button>
 
         <select
-          className=" order-1 md:order-2 justify-self-end  md:justify-self-end max-w-[180px] text-purple-900 border-1 border-stone-200 font-bold bg-white p-1 rounded-lg "
+          className=" order-1 md:order-2 justify-self-end  md:justify-self-end max-w-[180px] hover:shadow-lg text-purple-900 border-1 border-stone-200 font-bold bg-white p-1 rounded-lg "
           name=""
           id=""
           value={selectedSurah}
@@ -90,7 +90,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
         <select
           value={selectedAyah}
           onChange={(e) => handleSelectAyah(e.target.value)}
-          className=" justify-self-start  md:justify-self-auto max-w-[180px] order-2 md:order-3 border-1 border-stone-200 bg-white p-1 rounded-lg "
+          className=" justify-self-start  md:justify-self-auto max-w-[180px] hover:shadow-lg order-2 md:order-3 border-1 border-stone-200 bg-white p-1 rounded-lg "
         >
           <option value={0}>Lompat ke ayat</option>
           {surahData.ayat.map((item) => (
@@ -100,7 +100,7 @@ export default function SurahAndAyahNavigation({ surahData }) {
           ))}
         </select>
         <button
-          className="order-4 border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer justify-self-start  md:justify-self-auto max-w-[180px]"
+          className="order-4 border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer justify-self-start  md:justify-self-auto max-w-[180px] hover:shadow-lg hover:bg-purple-300/40"
           onClick={() => {
             if (nextSurah) navigate(`/surah/${nextSurah}`);
           }}
