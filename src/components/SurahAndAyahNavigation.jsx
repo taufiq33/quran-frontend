@@ -48,75 +48,71 @@ export default function SurahAndAyahNavigation({ surahData }) {
 
   return (
     <>
-      <div className="header fixed w-full right-0 left-0 top-0 z-10 bg-stone-100 shadow-lg rounded-xl flex flex-col justify-around items-center gap-2 mb-4 px-4 py-2 text-sm opcity-50">
-        <div className="flex gap-2 justify-around items-center">
-          <select
-            className="text-purple-900 border-1 border-stone-200 font-bold bg-white p-1 rounded-lg "
-            name=""
-            id=""
-            value={selectedSurah}
-            onChange={handleSelectSurah}
-          >
-            {listSurah.map((item) => {
-              return (
-                <option
-                  className={
-                    item.nomor == number
-                      ? "bg-purple-900 text-white font-bold"
-                      : "font-normal text-black"
-                  }
-                  value={item.nomor}
-                  key={item.nomor}
-                >
-                  {item.nomor}. {item.namaLatin}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            value={selectedAyah}
-            onChange={(e) => handleSelectAyah(e.target.value)}
-            className=" border-1 border-stone-200 bg-white p-1 rounded-lg "
-          >
-            <option value={0}>Lompat ke ayat</option>
-            {surahData.ayat.map((item) => (
-              <option key={item.nomorAyat} value={item.nomorAyat}>
-                Ayat {item.nomorAyat}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex gap-6 justify-around items-center">
-          <button
-            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
-            onClick={() => {
-              if (prevSurah) navigate(`/surah/${prevSurah}`);
-            }}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-            {!prevSurah && <span>---</span>}
-            {prevSurah && (
-              <span>
-                {prevSurah}. {listSurah[prevSurah - 1].namaLatin}
-              </span>
-            )}
-          </button>
+      <div className="header fixed w-full right-0 left-0 top-0 z-10 bg-stone-100 shadow-xl rounded-xl grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4  mb-4 px-4 py-2 text-sm">
+        <button
+          className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer order-3 md:order-1 justify-self-end md:justify-self-end max-w-[180px]"
+          onClick={() => {
+            if (prevSurah) navigate(`/surah/${prevSurah}`);
+          }}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+          {!prevSurah && <span>---</span>}
+          {prevSurah && (
+            <span>
+              {prevSurah}. {listSurah[prevSurah - 1].namaLatin}
+            </span>
+          )}
+        </button>
 
-          <button
-            className="border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer "
-            onClick={() => {
-              if (nextSurah) navigate(`/surah/${nextSurah}`);
-            }}
-          >
-            {!nextSurah && <span>---</span>}
-            {nextSurah && (
-              <span>
-                {nextSurah}. {listSurah[nextSurah - 1].namaLatin}
-              </span>
-            )}
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
-        </div>
+        <select
+          className=" order-1 md:order-2 justify-self-end  md:justify-self-end max-w-[180px] text-purple-900 border-1 border-stone-200 font-bold bg-white p-1 rounded-lg "
+          name=""
+          id=""
+          value={selectedSurah}
+          onChange={handleSelectSurah}
+        >
+          {listSurah.map((item) => {
+            return (
+              <option
+                className={
+                  item.nomor == number
+                    ? "bg-purple-900 text-white font-bold"
+                    : "font-normal text-black"
+                }
+                value={item.nomor}
+                key={item.nomor}
+              >
+                {item.nomor}. {item.namaLatin}
+              </option>
+            );
+          })}
+        </select>
+        <select
+          value={selectedAyah}
+          onChange={(e) => handleSelectAyah(e.target.value)}
+          className=" justify-self-start  md:justify-self-auto max-w-[180px] order-2 md:order-3 border-1 border-stone-200 bg-white p-1 rounded-lg "
+        >
+          <option value={0}>Lompat ke ayat</option>
+          {surahData.ayat.map((item) => (
+            <option key={item.nomorAyat} value={item.nomorAyat}>
+              Ayat {item.nomorAyat}
+            </option>
+          ))}
+        </select>
+        <button
+          className="order-4 border-1 border-stone-200  bg-white p-2 flex gap-2 justify-center items-center rounded-lg cursor-pointer justify-self-start  md:justify-self-auto max-w-[180px]"
+          onClick={() => {
+            if (nextSurah) navigate(`/surah/${nextSurah}`);
+          }}
+        >
+          {!nextSurah && <span>---</span>}
+          {nextSurah && (
+            <span>
+              {nextSurah}. {listSurah[nextSurah - 1].namaLatin}
+            </span>
+          )}
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
       </div>
     </>
   );
