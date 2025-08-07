@@ -157,11 +157,11 @@ export default function SettingTampilan() {
             </p>
           </div>
           <div className="flex justify-between items-center font-bold mt-4 text-sm">
-            <label htmlFor="transliterasi">
+            <label htmlFor="autoLastRead">
               Selalu tandai "terakhir dibaca" di setiap membuka halaman surat
             </label>
             <input
-              id="transliterasi"
+              id="autoLastRead"
               type="checkbox"
               className="cursor-pointer w-4 h-4 accent-purple-600 scale-110"
               onChange={(e) =>
