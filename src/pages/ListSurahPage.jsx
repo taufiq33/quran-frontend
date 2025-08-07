@@ -13,6 +13,8 @@ import Header from "../components/Header";
 import Form from "../components/Modal/Form";
 import { scrollToTop } from "../utils/scrollUtils";
 import useTitle from "../hooks/useTitle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
@@ -149,6 +151,21 @@ export default function ListSurahPage() {
                 placeholder="cari nama/nomor surat..."
                 autoComplete="off"
               />
+            </div>
+
+            <hr className="border border-stone-200 my-2" />
+
+            <div className="p-2">
+              <p className="text-xs font-semibold md:text-sm">
+                Logo{" "}
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  style={{ color: "#7c3aed" }}
+                  className="mr-1"
+                />
+                disamping nama surat, menandakan surat bisa diakses offline
+                (kecuali audio)
+              </p>
             </div>
 
             <hr className="border border-stone-200 my-2" />
