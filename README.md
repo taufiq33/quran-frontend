@@ -1,7 +1,7 @@
 # Al-Quran Digital
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
 ![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8)
 
 Aplikasi Al-Quran Digital berbasis Progressive Web App (PWA) untuk membaca dan mempelajari Al-Quran dengan fitur lengkap dan antarmuka yang responsif.
