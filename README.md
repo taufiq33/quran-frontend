@@ -41,7 +41,7 @@ Proyek ini merupakan aplikasi pembelajaran yang saya kembangkan untuk memperdala
 
 **Frontend:**
 
-- React 18 - Library JavaScript untuk membangun antarmuka pengguna
+- React JS - Library JavaScript untuk membangun antarmuka pengguna
 - React Router v7 - Routing untuk aplikasi single-page
 - TailwindCSS - Framework CSS utility-first
 - Vite - Build tool dan development server
