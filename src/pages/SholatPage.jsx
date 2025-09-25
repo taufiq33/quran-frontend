@@ -1,12 +1,14 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, lazy, Suspense } from "react";
 import { appContext } from "../context/app-context";
 
 import LoadingIndicator from "../components/LoadingIndicator";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatGregorianDate, getHijriDate } from "../utils/dateUtils";
 import { scrollToTop } from "../utils/scrollUtils";
 import useTitle from "../hooks/useTitle";
+
+const DatePicker = lazy(() => import("react-datepicker"));
 
 export default function SholatPage() {
   const [requestData, setRequestData] = useState(null);
@@ -73,13 +75,15 @@ export default function SholatPage() {
             >
               &larr;
             </button>
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="dd-MM-yyyy"
-              className="max-w-40 rounded-md border-1 border-purple-300 p-2 text-center"
-              calendarStartDay={1}
-            />
+            <Suspense fallback={<p>Loading datepicker...</p>}>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="dd-MM-yyyy"
+                className="max-w-40 rounded-md border-1 border-purple-300 p-2 text-center"
+                calendarStartDay={1}
+              />
+            </Suspense>
             <button
               onClick={() => changeDate(1)}
               className="cursor-pointer p-2 rounded-md bg-purple-100 hover:bg-purple-200 transition-colors"

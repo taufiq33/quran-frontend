@@ -1,16 +1,23 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Homepage from "./pages/Homepage";
-import ListSurahPage from "./pages/ListSurahPage";
+// import ListSurahPage from "./pages/ListSurahPage";
 import Surah from "./pages/Surah";
-import BookmarkPage from "./pages/BookmarkPage";
-import SettingPage from "./pages/SettingPage";
+// import BookmarkPage from "./pages/BookmarkPage";
+// import SettingPage from "./pages/SettingPage";
 import ErrorPage from "./pages/ErrorPage";
 import AppContextProvider from "./provider/AppProvider";
 
 import { loader as SurahLoader } from "./pages/Surah";
 import { saveToLocalStorageSurahData } from "./helper/local-storage-helper";
-import SholatPage from "./pages/SholatPage";
+// import SholatPage from "./pages/SholatPage";
 import Layout from "./pages/Layout";
+
+import LoadingIndicator from "./components/LoadingIndicator";
+const ListSurahPage = lazy(() => import("./pages/ListSurahPage"));
+const SholatPage = lazy(() => import("./pages/SholatPage"));
+const BookmarkPage = lazy(() => import("./pages/BookmarkPage"));
+const SettingPage = lazy(() => import("./pages/SettingPage"));
 
 const router = createBrowserRouter([
   {
@@ -24,11 +31,19 @@ const router = createBrowserRouter([
       },
       {
         path: "list-surah",
-        element: <ListSurahPage />,
+        element: (
+          <Suspense fallback={<LoadingIndicator />}>
+            <ListSurahPage />
+          </Suspense>
+        ),
       },
       {
         path: "sholat",
-        element: <SholatPage />, // Placeholder for SholatPage component
+        element: (
+          <Suspense fallback={<LoadingIndicator />}>
+            <SholatPage />
+          </Suspense>
+        ),
       },
       {
         path: "surah/:number/:ayah?",
@@ -37,11 +52,19 @@ const router = createBrowserRouter([
       },
       {
         path: "bookmark",
-        element: <BookmarkPage />,
+        element: (
+          <Suspense fallback={<LoadingIndicator />}>
+            <BookmarkPage />
+          </Suspense>
+        ),
       },
       {
         path: "settings",
-        element: <SettingPage />,
+        element: (
+          <Suspense fallback={<LoadingIndicator />}>
+            <SettingPage />
+          </Suspense>
+        ),
       },
     ],
   },
