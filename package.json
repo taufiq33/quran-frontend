@@ -16,9 +16,9 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@tailwindcss/vite": "^4.1.5",
     "fontawesome-svg-core~": "link:\u001b[200~@fortawesome/fontawesome-svg-core~",
-    "react": "^19.0.0",
+    "react": "^19.2.1",
     "react-datepicker": "^8.4.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.2.1",
     "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "postcss": "^8.5.3",
     "rollup-plugin-visualizer": "^6.0.3",
     "tailwindcss": "^4.1.5",
-    "vite": "^6.3.1",
+    "vite": "^7.2.7",
     "vite-plugin-pwa": "^1.0.2"
   }
 }
