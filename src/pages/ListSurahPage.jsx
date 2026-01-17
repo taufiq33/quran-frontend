@@ -18,7 +18,7 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function ListSurahPage() {
   const [keyword, setKeyword] = useState("");
-  const [debouncedKeyword, setDebouncedKeyword] = useState("");
+  // const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const searchBarRef = useRef();
   const { listSurah, showModal, userNameApp, saveUsername } =
     useContext(appContext);
@@ -40,7 +40,7 @@ export default function ListSurahPage() {
               saveUsername(name);
             },
           }}
-        />
+        />,
       );
     }
   }, [showModal]);
@@ -55,19 +55,17 @@ export default function ListSurahPage() {
     return () => clearTimeout(timeout);
   }, []);
 
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      setDebouncedKeyword(keyword.trim());
-    }, 1000);
-    return () => clearTimeout(delay);
-  }, [keyword]);
+  // useEffect(() => {
+  //   const delay = setTimeout(() => {
+  //     setDebouncedKeyword(keyword.trim());
+  //   }, 1000);
+  //   return () => clearTimeout(delay);
+  // }, [keyword]);
 
   const filteredSurah = useMemo(() => {
-    if (!debouncedKeyword) return listSurah;
+    if (!keyword) return listSurah;
 
-    const cleanedKeyword = debouncedKeyword
-      .replace(/[^a-zA-Z0-9 ]/g, "")
-      .toLowerCase();
+    const cleanedKeyword = keyword.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase();
     // const regex = new RegExp(cleanedKeyword, "i");
 
     return listSurah.filter((item) => {
@@ -75,12 +73,12 @@ export default function ListSurahPage() {
         .replace(/[^a-zA-Z0-9 ]/g, "")
         .toLowerCase();
       return (
-        item.nomor.toString() === debouncedKeyword.toString() ||
+        item.nomor.toString() === keyword.toString() ||
         // regex.test(cleanedNamaLatin)
         cleanedNamaLatin.includes(cleanedKeyword)
       );
     });
-  }, [debouncedKeyword, listSurah]);
+  }, [keyword, listSurah]);
 
   function handleSearchIconClick() {
     searchBarRef.current.focus();
@@ -114,7 +112,7 @@ export default function ListSurahPage() {
                   navigate(
                     lastRead
                       ? `/surah/${lastRead.surahNumber}/${lastRead.ayah}`
-                      : "/surah/1/1"
+                      : "/surah/1/1",
                   )
                 }
               >
